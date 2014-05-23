@@ -21,6 +21,10 @@
 		95FE5456192FF8190034358C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95FE5438192FF8190034358C /* UIKit.framework */; };
 		95FE545E192FF8190034358C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 95FE545C192FF8190034358C /* InfoPlist.strings */; };
 		95FE5460192FF8190034358C /* BreakoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE545F192FF8190034358C /* BreakoutTests.m */; };
+		95FE546B192FFC5E0034358C /* PaddleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE546A192FFC5E0034358C /* PaddleView.m */; };
+		95FE546E192FFCA70034358C /* BallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE546D192FFCA70034358C /* BallView.m */; };
+		95FE5471192FFD240034358C /* BlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5470192FFD240034358C /* BlockView.m */; };
+		95FE5479193005450034358C /* RowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5478193005450034358C /* RowView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +57,15 @@
 		95FE545B192FF8190034358C /* BreakoutTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BreakoutTests-Info.plist"; sourceTree = "<group>"; };
 		95FE545D192FF8190034358C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		95FE545F192FF8190034358C /* BreakoutTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BreakoutTests.m; sourceTree = "<group>"; };
+		95FE5469192FFC5E0034358C /* PaddleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaddleView.h; sourceTree = "<group>"; };
+		95FE546A192FFC5E0034358C /* PaddleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaddleView.m; sourceTree = "<group>"; };
+		95FE546C192FFCA70034358C /* BallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BallView.h; sourceTree = "<group>"; };
+		95FE546D192FFCA70034358C /* BallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BallView.m; sourceTree = "<group>"; };
+		95FE546F192FFD240034358C /* BlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockView.h; sourceTree = "<group>"; };
+		95FE5470192FFD240034358C /* BlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockView.m; sourceTree = "<group>"; };
+		95FE54751930028D0034358C /* BreakoutGameAppConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BreakoutGameAppConstants.h; sourceTree = "<group>"; };
+		95FE5477193005450034358C /* RowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RowView.h; sourceTree = "<group>"; };
+		95FE5478193005450034358C /* RowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RowView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,11 +125,10 @@
 		95FE543A192FF8190034358C /* Breakout */ = {
 			isa = PBXGroup;
 			children = (
-				95FE5443192FF8190034358C /* AppDelegate.h */,
-				95FE5444192FF8190034358C /* AppDelegate.m */,
-				95FE5446192FF8190034358C /* Main.storyboard */,
-				95FE5449192FF8190034358C /* BreakoutGameViewController.h */,
-				95FE544A192FF8190034358C /* BreakoutGameViewController.m */,
+				95FE5476193002F80034358C /* AppLevel */,
+				95FE5474192FFD760034358C /* Model */,
+				95FE5472192FFD430034358C /* View */,
+				95FE5473192FFD570034358C /* Controller */,
 				95FE544C192FF8190034358C /* Images.xcassets */,
 				95FE543B192FF8190034358C /* Supporting Files */,
 			);
@@ -150,6 +162,48 @@
 				95FE545C192FF8190034358C /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		95FE5472192FFD430034358C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				95FE5446192FF8190034358C /* Main.storyboard */,
+				95FE5469192FFC5E0034358C /* PaddleView.h */,
+				95FE546A192FFC5E0034358C /* PaddleView.m */,
+				95FE546C192FFCA70034358C /* BallView.h */,
+				95FE546D192FFCA70034358C /* BallView.m */,
+				95FE546F192FFD240034358C /* BlockView.h */,
+				95FE5470192FFD240034358C /* BlockView.m */,
+				95FE5477193005450034358C /* RowView.h */,
+				95FE5478193005450034358C /* RowView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		95FE5473192FFD570034358C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				95FE5449192FF8190034358C /* BreakoutGameViewController.h */,
+				95FE544A192FF8190034358C /* BreakoutGameViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		95FE5474192FFD760034358C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		95FE5476193002F80034358C /* AppLevel */ = {
+			isa = PBXGroup;
+			children = (
+				95FE5443192FF8190034358C /* AppDelegate.h */,
+				95FE5444192FF8190034358C /* AppDelegate.m */,
+				95FE54751930028D0034358C /* BreakoutGameAppConstants.h */,
+			);
+			name = AppLevel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,9 +303,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95FE5471192FFD240034358C /* BlockView.m in Sources */,
+				95FE546B192FFC5E0034358C /* PaddleView.m in Sources */,
 				95FE544B192FF8190034358C /* BreakoutGameViewController.m in Sources */,
+				95FE546E192FFCA70034358C /* BallView.m in Sources */,
 				95FE5445192FF8190034358C /* AppDelegate.m in Sources */,
 				95FE5441192FF8190034358C /* main.m in Sources */,
+				95FE5479193005450034358C /* RowView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +514,7 @@
 				95FE5465192FF8190034358C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		95FE5466192FF8190034358C /* Build configuration list for PBXNativeTarget "BreakoutTests" */ = {
 			isa = XCConfigurationList;
@@ -464,6 +523,7 @@
 				95FE5468192FF8190034358C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
