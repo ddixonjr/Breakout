@@ -25,6 +25,7 @@
 		95FE546E192FFCA70034358C /* BallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE546D192FFCA70034358C /* BallView.m */; };
 		95FE5471192FFD240034358C /* BlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5470192FFD240034358C /* BlockView.m */; };
 		95FE5479193005450034358C /* RowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5478193005450034358C /* RowView.m */; };
+		95FE547F193024AF0034358C /* BlockIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE547E193024AF0034358C /* BlockIndexPath.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,8 @@
 		95FE54751930028D0034358C /* BreakoutGameAppConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BreakoutGameAppConstants.h; sourceTree = "<group>"; };
 		95FE5477193005450034358C /* RowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RowView.h; sourceTree = "<group>"; };
 		95FE5478193005450034358C /* RowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RowView.m; sourceTree = "<group>"; };
+		95FE547D193024AF0034358C /* BlockIndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockIndexPath.h; sourceTree = "<group>"; };
+		95FE547E193024AF0034358C /* BlockIndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockIndexPath.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +195,8 @@
 		95FE5474192FFD760034358C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				95FE547D193024AF0034358C /* BlockIndexPath.h */,
+				95FE547E193024AF0034358C /* BlockIndexPath.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -306,6 +311,7 @@
 				95FE5471192FFD240034358C /* BlockView.m in Sources */,
 				95FE546B192FFC5E0034358C /* PaddleView.m in Sources */,
 				95FE544B192FF8190034358C /* BreakoutGameViewController.m in Sources */,
+				95FE547F193024AF0034358C /* BlockIndexPath.m in Sources */,
 				95FE546E192FFCA70034358C /* BallView.m in Sources */,
 				95FE5445192FF8190034358C /* AppDelegate.m in Sources */,
 				95FE5441192FF8190034358C /* main.m in Sources */,

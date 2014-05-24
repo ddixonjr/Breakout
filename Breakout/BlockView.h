@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BlockIndexPath.h"
 
 @interface BlockView : UIView
+
+@property (strong, nonatomic) BlockIndexPath *blockIndexPath;
+
+-(id)initWithBlockIndexPath:(BlockIndexPath *)blockIndexPath;
 
 @end

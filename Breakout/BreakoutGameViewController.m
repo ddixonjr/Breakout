@@ -15,15 +15,17 @@
 #import "BallView.h"
 #import "BlockView.h"
 #import "RowView.h"
+#import "BlockIndexPath.h"
 
 #define kBottomBoundaryIdString @"BottomBoundary"
 #define kGamePiece
 
 @interface BreakoutGameViewController () <UICollisionBehaviorDelegate>
 
+@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (weak, nonatomic) IBOutlet UILabel *turnLabel;
 @property (weak, nonatomic) IBOutlet PaddleView *paddleView;
 @property (weak, nonatomic) IBOutlet BallView *ballView;
-@property (weak, nonatomic) IBOutlet BlockView *blockView;
 @property (weak, nonatomic) IBOutlet RowView *rowView0;
 @property (weak, nonatomic) IBOutlet RowView *rowView1;
 @property (weak, nonatomic) IBOutlet RowView *rowView2;
@@ -39,7 +41,11 @@
 @property (strong,nonatomic) UIDynamicItemBehavior *ballItemBehavior;
 @property (strong,nonatomic) UIDynamicItemBehavior *blockItemBehavior;
 
+@property (strong, nonatomic) BlockView *blockView;  // Ditch this when I get the game model and programmatic blocks up and running
+
 @end
+
+
 
 @implementation BreakoutGameViewController
 
@@ -84,22 +90,41 @@
     UIView *collidedView1 = (UIView *) item1;
     UIView *collidedView2 = (UIView *) item2;
     NSLog(@"Ball hit items %d and %d", collidedView1.tag, collidedView2.tag);
+    BlockView *blockHit = nil;
 
-    if (collidedView1.tag == 3)
+    if (collidedView1.tag == kGamePieceTagBlock)
     {
-        collidedView1.hidden = YES;
-        [self.collisionBehavior removeItem:item1];
+        [self removeBlockFromPlay:collidedView1];
+        blockHit = (BlockView *) collidedView1;
+        NSLog(@"the block hit had a position of row %d : position %d", blockHit.blockIndexPath.blockRow, blockHit.blockIndexPath.blockPosition);
+        [self updateScore];
     }
 
-    if (collidedView2.tag == 3)
+    if (collidedView2.tag == kGamePieceTagBlock)
     {
-        collidedView2.hidden = YES;
-        [self.collisionBehavior removeItem:item2];
+        [self removeBlockFromPlay:collidedView2];
+        blockHit = (BlockView *) collidedView2;
+        NSLog(@"the block hit had a position of row %d : position %d", blockHit.blockIndexPath.blockRow, blockHit.blockIndexPath.blockPosition);
+        [self updateScore];
     }
+
+
 }
 
 
 #pragma mark - Helper Methods
+
+-(void)updateScore
+{
+    self.scoreLabel.text = [NSString stringWithFormat:@"%d",([self.scoreLabel.text intValue]+100)];
+}
+
+- (void)removeBlockFromPlay:(UIView *)block
+{
+    block.hidden = YES;
+    [self.collisionBehavior removeItem:block];
+
+}
 
 - (void)initRowViewArray
 {
@@ -117,6 +142,17 @@
 
 -(void)initializeBreakoutAnimation
 {
+    // Test try at programmatic placement of a block in the content view of this view controller using the rowViewX UIViews as a reference point...WORKS!!!
+    //  I'm also using my custom class BlockIndexPath to convey block position...WORKS!!!
+    BlockIndexPath *blockIndexPath = [[BlockIndexPath alloc] initWithRow:2 andPosition:5];
+    self.blockView = [[BlockView alloc] initWithBlockIndexPath:blockIndexPath];
+    self.blockView.frame = CGRectMake(self.rowView0.frame.origin.x+2,
+                                      self.rowView0.frame.origin.y+2,
+                                      100.0,10.0);
+    self.blockView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.blockView];
+
+    self.scoreLabel.text = @"0";
 
     self.ballView.center = self.view.center;
     self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];

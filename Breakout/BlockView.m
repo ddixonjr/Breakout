@@ -23,14 +23,24 @@
 
 -(id)init
 {
+    return [self initWithBlockIndexPath:nil];
+}
+
+-(id)initWithBlockIndexPath:(BlockIndexPath *)blockIndexPath
+{
     self = [super init];
     if (self)
     {
         self.tag = kGamePieceTagBlock;
+        self.blockIndexPath = blockIndexPath;
     }
-    NSLog(@"in init for a BlockView");
+    NSLog(@"in initWithBlockIndexPath for a BlockView");
     return self;
 }
+
+
+
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

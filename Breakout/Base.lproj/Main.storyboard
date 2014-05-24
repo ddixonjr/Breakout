@@ -12,11 +12,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="2mE-2p-qcT" customClass="BlockView">
-                                <rect key="frame" x="20" y="168" width="275" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
                             <view contentMode="scaleToFill" id="Zoe-MJ-W45" customClass="PaddleView">
                                 <rect key="frame" x="20" y="416" width="50" height="10"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -89,13 +84,14 @@
                     </view>
                     <connections>
                         <outlet property="ballView" destination="nHH-RN-o9p" id="lz4-Z9-yAE"/>
-                        <outlet property="blockView" destination="2mE-2p-qcT" id="W7p-Jb-LeS"/>
                         <outlet property="paddleView" destination="Zoe-MJ-W45" id="Bgz-2f-5Su"/>
                         <outlet property="rowView0" destination="3wr-A7-0pm" id="Ug6-jV-yOj"/>
                         <outlet property="rowView1" destination="oKm-Ka-Tdn" id="yfj-B0-6XC"/>
                         <outlet property="rowView2" destination="H2R-ED-Mc3" id="FVy-W2-Fa7"/>
                         <outlet property="rowView3" destination="rAF-p6-diV" id="Lee-et-uVs"/>
                         <outlet property="rowView4" destination="zOX-BX-5nQ" id="RPb-Nd-Yum"/>
+                        <outlet property="scoreLabel" destination="uWy-Ig-PvQ" id="ger-Ov-1Fy"/>
+                        <outlet property="turnLabel" destination="3Hm-ZU-VgW" id="7LF-LV-hls"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
