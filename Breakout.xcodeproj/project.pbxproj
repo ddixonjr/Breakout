@@ -26,6 +26,10 @@
 		95FE5471192FFD240034358C /* BlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5470192FFD240034358C /* BlockView.m */; };
 		95FE5479193005450034358C /* RowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5478193005450034358C /* RowView.m */; };
 		95FE547F193024AF0034358C /* BlockIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE547E193024AF0034358C /* BlockIndexPath.m */; };
+		95FE548219303B6C0034358C /* BreakoutGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE548119303B6C0034358C /* BreakoutGame.m */; };
+		95FE548519303D120034358C /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE548419303D120034358C /* Player.m */; };
+		95FE548819303E550034358C /* BlockGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE548719303E550034358C /* BlockGrid.m */; };
+		95FE548B19303E920034358C /* Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE548A19303E920034358C /* Block.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +73,14 @@
 		95FE5478193005450034358C /* RowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RowView.m; sourceTree = "<group>"; };
 		95FE547D193024AF0034358C /* BlockIndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockIndexPath.h; sourceTree = "<group>"; };
 		95FE547E193024AF0034358C /* BlockIndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockIndexPath.m; sourceTree = "<group>"; };
+		95FE548019303B6C0034358C /* BreakoutGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BreakoutGame.h; sourceTree = "<group>"; };
+		95FE548119303B6C0034358C /* BreakoutGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BreakoutGame.m; sourceTree = "<group>"; };
+		95FE548319303D120034358C /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		95FE548419303D120034358C /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		95FE548619303E550034358C /* BlockGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockGrid.h; sourceTree = "<group>"; };
+		95FE548719303E550034358C /* BlockGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockGrid.m; sourceTree = "<group>"; };
+		95FE548919303E920034358C /* Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Block.h; sourceTree = "<group>"; };
+		95FE548A19303E920034358C /* Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Block.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +209,14 @@
 			children = (
 				95FE547D193024AF0034358C /* BlockIndexPath.h */,
 				95FE547E193024AF0034358C /* BlockIndexPath.m */,
+				95FE548019303B6C0034358C /* BreakoutGame.h */,
+				95FE548119303B6C0034358C /* BreakoutGame.m */,
+				95FE548319303D120034358C /* Player.h */,
+				95FE548419303D120034358C /* Player.m */,
+				95FE548619303E550034358C /* BlockGrid.h */,
+				95FE548719303E550034358C /* BlockGrid.m */,
+				95FE548919303E920034358C /* Block.h */,
+				95FE548A19303E920034358C /* Block.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -312,10 +332,14 @@
 				95FE546B192FFC5E0034358C /* PaddleView.m in Sources */,
 				95FE544B192FF8190034358C /* BreakoutGameViewController.m in Sources */,
 				95FE547F193024AF0034358C /* BlockIndexPath.m in Sources */,
+				95FE548519303D120034358C /* Player.m in Sources */,
+				95FE548219303B6C0034358C /* BreakoutGame.m in Sources */,
 				95FE546E192FFCA70034358C /* BallView.m in Sources */,
 				95FE5445192FF8190034358C /* AppDelegate.m in Sources */,
 				95FE5441192FF8190034358C /* main.m in Sources */,
+				95FE548B19303E920034358C /* Block.m in Sources */,
 				95FE5479193005450034358C /* RowView.m in Sources */,
+				95FE548819303E550034358C /* BlockGrid.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
