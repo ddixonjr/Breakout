@@ -28,6 +28,6 @@
 -(void)stopGame;
 -(void)restartGame;
 -(void)turnEnded;
--(BOOL)destroyHitBlockAtBlockDescriptor:(BlockDescriptor *)BlockDescriptor;
+-(BOOL)destroyHitBlockWithBlockDescriptor:(BlockDescriptor *)BlockDescriptor;
 
 @end

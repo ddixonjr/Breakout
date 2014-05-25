@@ -70,7 +70,7 @@
 }
 
 
--(BOOL)destroyHitBlockAtBlockDescriptor:(BlockDescriptor *)BlockDescriptor
+-(BOOL)destroyHitBlockWithBlockDescriptor:(BlockDescriptor *)BlockDescriptor
 {
     BOOL blockHitHasBeenDestroyed = NO;
     NSInteger pointsGainedIfBlockDestroyed =[self.blockGrid destroyBlockWithBlockDescriptor:BlockDescriptor];
@@ -79,6 +79,7 @@
     {
         Player *curPlayer = [self.players objectAtIndex:self.curPlayerIndex];
         curPlayer.score += pointsGainedIfBlockDestroyed;
+        blockHitHasBeenDestroyed = YES;
         if ([self.delegate respondsToSelector:@selector(breakoutGame:playerName:hasTurnsLeft:withClearBoardStatus:andCurrentScore:)])
         {
             // CRITICAL QUESTION: Is it ok for me to call a delegate method on my delegate now
@@ -86,7 +87,6 @@
             [self.delegate breakoutGame:self playerName:curPlayer.name hasTurnsLeft:curPlayer.turnsLeft withClearBoardStatus:NO andCurrentScore:curPlayer.score];
         }
     }
-
     return blockHitHasBeenDestroyed;
 }
 

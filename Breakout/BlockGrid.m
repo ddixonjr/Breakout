@@ -27,6 +27,7 @@
     return [self initRandomBlockGridWithDifficulty:1];
 }
 
+
 - (id)initRandomBlockGridWithDifficulty:(NSInteger)difficulty
 {
     self = [super init];
@@ -61,6 +62,7 @@
     }
 }
 
+
 - (NSInteger)numberOfBlocksInRowWithBlockDescriptor:(BlockDescriptor *)BlockDescriptor
 {
     NSMutableArray *curBlockRow = [self.blockGridRowArray objectAtIndex:BlockDescriptor.blockRow];
@@ -68,44 +70,29 @@
 }
 
 
-- (NSInteger)destroyBlockWithBlockDescriptor:(BlockDescriptor *)BlockDescriptor
+- (NSInteger)destroyBlockWithBlockDescriptor:(BlockDescriptor *)blockDescriptor
 {
     NSInteger pointsIfDestroyed = 0;
-    NSMutableArray *curBlockRowArray = [self.blockGridRowArray objectAtIndex:BlockDescriptor.blockRow];
-    Block *curBlockHit = [curBlockRowArray objectAtIndex:BlockDescriptor.blockPosition];
+    NSMutableArray *curBlockRowArray = [self.blockGridRowArray objectAtIndex:blockDescriptor.blockRow];
+    Block *curBlockHit = [curBlockRowArray objectAtIndex:blockDescriptor.blockPosition];
     [curBlockHit logHit];
-    NSLog(@"block at (%d,%d) hit and hasBeenDestroyed = %d",BlockDescriptor.blockRow,BlockDescriptor.blockPosition,curBlockHit.hasBeenDestroyed);
+    NSLog(@"block at (%d,%d) hit and hasBeenDestroyed = %d",blockDescriptor.blockRow,blockDescriptor.blockPosition,curBlockHit.hasBeenDestroyed);
 
     if (curBlockHit.hasBeenDestroyed)
     {
         pointsIfDestroyed = curBlockHit.pointValue;
-        [curBlockRowArray removeObjectAtIndex:BlockDescriptor.blockPosition];
+//        [curBlockRowArray removeObjectAtIndex:BlockDescriptor.blockPosition];
     }
 
     return pointsIfDestroyed;
 }
 
-- (NSInteger)blockStrengthOfBlockWithBlockDescriptor:(BlockDescriptor *)BlockDescriptor
+
+- (NSInteger)blockStrengthOfBlockWithBlockDescriptor:(BlockDescriptor *)blockDescriptor
 {
-    NSMutableArray *curBlockRowArray = [self.blockGridRowArray objectAtIndex:BlockDescriptor.blockRow];
-    Block *polledBlock = [curBlockRowArray objectAtIndex:BlockDescriptor.blockPosition];
+    NSMutableArray *curBlockRowArray = [self.blockGridRowArray objectAtIndex:blockDescriptor.blockRow];
+    Block *polledBlock = [curBlockRowArray objectAtIndex:blockDescriptor.blockPosition];
     return polledBlock.hitsToDestroy;
 }
-
-
-//-(NSString *)description
-//{
-//    NSString *message = nil;
-//    for (NSMutableArray *curRowArray in self.blockGridRowArray)
-//    {
-//        [message stringByAppendingString:@"Block Row Begin:\n"];
-//        for (Block *curBlock in curRowArray)
-//            [message stringByAppendingString:[curBlock description]];
-//
-//        message = @"";
-//    }
-//    return message;
-//}
-
 
 @end

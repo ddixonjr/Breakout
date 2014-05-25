@@ -107,7 +107,7 @@
 
     if (blockViewHit !=nil && blockViewHit.tag == 3)
     {
-        if ([self.breakoutGame destroyHitBlockAtBlockDescriptor:blockViewHit.blockDescriptor])
+        if ([self.breakoutGame destroyHitBlockWithBlockDescriptor:blockViewHit.blockDescriptor])
         {
             [self removeBlockViewFromPlayView:blockViewHit];
             NSLog(@"the block hit had a position of row %d : position %d and strength of %d", blockViewHit.blockDescriptor.blockRow, blockViewHit.blockDescriptor.blockPosition, blockViewHit.blockDescriptor.blockStrength);
@@ -148,7 +148,7 @@
         NSLog(@"curBlockStrength = %d  curBlockWidth is %f",curNewBlock.blockDescriptor.blockStrength, curBlockWidth);
         curNewBlock.frame = CGRectMake((curRowView.frame.origin.x + curRowXPosition),
                                        (curRowView.frame.origin.y + 2.0),
-                                       curBlockWidth, 10.0);
+                                       curBlockWidth, 14.0);
         int randomNumber = arc4random_uniform(12) + 1;
         CGFloat randomRed = 1.0/((CGFloat)randomNumber);
         randomNumber = arc4random_uniform(12) + 1;
@@ -171,7 +171,6 @@
         self.blockItemBehavior.density = 1000;
         self.blockItemBehavior.allowsRotation = NO;
         [self.dynamicAnimator addBehavior:self.blockItemBehavior];
-
     }
 }
 
@@ -193,6 +192,8 @@
 - (void)removeBlockViewFromPlayView:(UIView *)blockView
 {
     [self.collisionBehavior removeItem:blockView];
+    [self.dynamicAnimator updateItemUsingCurrentState:blockView];
+    blockView.hidden = YES;
     [blockView removeFromSuperview];  // since I never established a property for the object referenced by blockView, the superview has the only strong reference, so this alone should reduce retain count to zero
 }
 
