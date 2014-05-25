@@ -11,6 +11,8 @@
 
 #define kDefaultMaxBlockGridRows  5
 #define kDefaultMaxBlockGridBlocksPerRow  10
+#define kDefaultMaxBlockHitsToDestroy  2
+
 
 @interface BlockGrid ()
 
@@ -20,41 +22,90 @@
 
 @implementation BlockGrid
 
--(id)init
+- (id)init
 {
-    return [self initRandomBlockGrid];
+    return [self initRandomBlockGridWithDifficulty:1];
 }
 
--(id)initRandomBlockGrid
+- (id)initRandomBlockGridWithDifficulty:(NSInteger)difficulty
 {
     self = [super init];
     if (self)
     {
-        [self buildRandomBlockGrid];
+        [self buildRandomBlockGridWithDifficulty:difficulty];
     }
     return self;
 }
 
 
--(void)buildRandomBlockGrid
+- (void)buildRandomBlockGridWithDifficulty:(NSInteger)difficulty
 {
-    for (int curBlockRow=0; curBlockRow<kDefaultMaxBlockGridRows; curBlockRow++)
+    self.blockRows = kDefaultMaxBlockGridRows;
+    self.blockCountPerRowArray = [[NSMutableArray alloc] init];
+    self.blockGridRowArray = [[NSMutableArray alloc] init];
+
+    for (int curBlockRow=0; curBlockRow<self.blockRows; curBlockRow++)
     {
-        int curRandomNumberOfBlocks = arc4random_uniform(kDefaultMaxBlockGridBlocksPerRow);
+        int curRandomNumberOfBlocks = (arc4random_uniform(kDefaultMaxBlockGridBlocksPerRow * difficulty) + 1);
+        [self.blockCountPerRowArray addObject:[NSNumber numberWithInt:curRandomNumberOfBlocks]];
         NSMutableArray *curNewBlockRowArray = [[NSMutableArray alloc] init];
 
         for (int curBlockRow=0; curBlockRow<curRandomNumberOfBlocks; curBlockRow++)
         {
             Block *curNewBlock = [[Block alloc] init];
+            NSInteger curHitsToDestroy = (arc4random_uniform(kDefaultMaxBlockHitsToDestroy * difficulty) + 1);
+            curNewBlock.hitsToDestroy = curHitsToDestroy;
+            [curNewBlockRowArray addObject:curNewBlock];
         }
         [self.blockGridRowArray addObject:curNewBlockRowArray];
     }
-
 }
 
--(NSInteger)destroyBlockAtBlockIndexPath:(BlockIndexPath *)blockIndexPath
+- (NSInteger)numberOfBlocksInRowWithBlockDescriptor:(BlockDescriptor *)BlockDescriptor
 {
-    return 0;
+    NSMutableArray *curBlockRow = [self.blockGridRowArray objectAtIndex:BlockDescriptor.blockRow];
+    return [curBlockRow count];
 }
+
+
+- (NSInteger)destroyBlockWithBlockDescriptor:(BlockDescriptor *)BlockDescriptor
+{
+    NSInteger pointsIfDestroyed = 0;
+    NSMutableArray *curBlockRowArray = [self.blockGridRowArray objectAtIndex:BlockDescriptor.blockRow];
+    Block *curBlockHit = [curBlockRowArray objectAtIndex:BlockDescriptor.blockPosition];
+    [curBlockHit logHit];
+    NSLog(@"block at (%d,%d) hit and hasBeenDestroyed = %d",BlockDescriptor.blockRow,BlockDescriptor.blockPosition,curBlockHit.hasBeenDestroyed);
+
+    if (curBlockHit.hasBeenDestroyed)
+    {
+        pointsIfDestroyed = curBlockHit.pointValue;
+        [curBlockRowArray removeObjectAtIndex:BlockDescriptor.blockPosition];
+    }
+
+    return pointsIfDestroyed;
+}
+
+- (NSInteger)blockStrengthOfBlockWithBlockDescriptor:(BlockDescriptor *)BlockDescriptor
+{
+    NSMutableArray *curBlockRowArray = [self.blockGridRowArray objectAtIndex:BlockDescriptor.blockRow];
+    Block *polledBlock = [curBlockRowArray objectAtIndex:BlockDescriptor.blockPosition];
+    return polledBlock.hitsToDestroy;
+}
+
+
+//-(NSString *)description
+//{
+//    NSString *message = nil;
+//    for (NSMutableArray *curRowArray in self.blockGridRowArray)
+//    {
+//        [message stringByAppendingString:@"Block Row Begin:\n"];
+//        for (Block *curBlock in curRowArray)
+//            [message stringByAppendingString:[curBlock description]];
+//
+//        message = @"";
+//    }
+//    return message;
+//}
+
 
 @end

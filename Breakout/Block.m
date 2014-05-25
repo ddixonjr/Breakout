@@ -8,11 +8,34 @@
 
 #import "Block.h"
 
+@interface Block ()
+
+@property (assign, nonatomic) NSInteger hitCount;
+@property (assign, nonatomic) BOOL hasBeenDestroyed;
+
+@end
+
 @implementation Block
 
 -(NSInteger)pointValue
 {
-    return (self.hitsToDisentegrate * self.hitsToDisentegrate) * 5;
+    return (self.hitsToDestroy * self.hitsToDestroy);
+}
+
+-(void)logHit
+{
+    self.hitCount++;
+
+    // >= just in case something in the game logic doesn't remove the block
+    // when the isDestroy flag is originally set, keep setting isDestroyed to YES.  :)
+    self.hasBeenDestroyed = (self.hitCount >= self.hitsToDestroy) ? YES : NO;
+    NSLog(@"\nin logHit...hitCount %d, hitsToDestroy %d, isDestroyed %d",self.hitCount,self.hitsToDestroy,self.hasBeenDestroyed);
+
+}
+
+-(NSString *)description
+{
+    return [NSString stringWithFormat:@"This block has hitCount: %d, pointValue: %d, and hasBeenDestroyed = %d", self.hitCount,self.pointValue,self.hasBeenDestroyed];
 }
 
 @end

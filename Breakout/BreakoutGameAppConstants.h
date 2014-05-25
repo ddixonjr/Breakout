@@ -12,5 +12,6 @@
 #define kGamePieceTagPaddle 1
 #define kGamePieceTagBall 2
 #define kGamePieceTagBlock 3
+#define kDefaultNumberOfTurns 3
 
 #endif

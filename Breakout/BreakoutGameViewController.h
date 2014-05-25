@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BreakoutGame.h"
+#import "BlockDescriptor.h"
 
-@interface BreakoutGameViewController : UIViewController
+@interface BreakoutGameViewController : UIViewController <BreakoutGameDelegate>
 
 
 @end

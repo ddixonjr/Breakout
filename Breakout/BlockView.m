@@ -23,18 +23,18 @@
 
 -(id)init
 {
-    return [self initWithBlockIndexPath:nil];
+    return [self initWithBlockDescriptor:nil];
 }
 
--(id)initWithBlockIndexPath:(BlockIndexPath *)blockIndexPath
+-(id)initWithBlockDescriptor:(BlockDescriptor *)blockDescriptor
 {
     self = [super init];
     if (self)
     {
         self.tag = kGamePieceTagBlock;
-        self.blockIndexPath = blockIndexPath;
+        self.blockDescriptor = blockDescriptor;
     }
-    NSLog(@"in initWithBlockIndexPath for a BlockView");
+    NSLog(@"in initWithBlockDescriptor for a BlockView");
     return self;
 }
 

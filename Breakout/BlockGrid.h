@@ -7,14 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BlockIndexPath.h"
+#import "BlockDescriptor.h"
 
 @interface BlockGrid : NSObject
 
-@property (assign, nonatomic) NSInteger maxBlockGridRows;
-@property (assign, nonatomic) NSInteger maxBlockGridBlocksPerRow;
+@property (strong, nonatomic) NSMutableArray *blockCountPerRowArray;
+@property (assign, nonatomic) NSInteger blockRows;
 
--(id)initRandomBlockGrid;
--(NSInteger)destroyBlockAtBlockIndexPath:(BlockIndexPath *)blockIndexPath;
+- (id)initRandomBlockGridWithDifficulty:(NSInteger)difficulty;
+- (NSInteger)destroyBlockWithBlockDescriptor:(BlockDescriptor *)BlockDescriptor;
+- (NSInteger)numberOfBlocksInRowWithBlockDescriptor:(BlockDescriptor *)BlockDescriptor;
+- (NSInteger)blockStrengthOfBlockWithBlockDescriptor:(BlockDescriptor *)BlockDescriptor;
 
 @end

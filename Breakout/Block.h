@@ -10,7 +10,10 @@
 
 @interface Block : NSObject
 
-@property (assign, nonatomic) NSInteger hitsToDisentegrate;
+@property (assign, nonatomic) NSInteger hitsToDestroy;
 @property (assign, readonly, nonatomic) NSInteger pointValue;
+@property (assign, readonly, nonatomic) BOOL hasBeenDestroyed;
+
+-(void)logHit;
 
 @end

@@ -7,23 +7,27 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BlockIndexPath.h"
+#import "BlockDescriptor.h"
 
 @class BreakoutGame;
 
-@protocol BreakoutGameDelegate
+@protocol BreakoutGameDelegate <NSObject> // Without explicit conformance to <NSObject> respondsToSelector: on the delegate will not compile
 
 -(void)breakoutGame:(BreakoutGame *)breakoutGame blockGridHasNumberOfRows:(NSInteger)rows;
--(void)breakoutGame:(BreakoutGame *)breakoutGame blockGridRow:(NSInteger)row hasNumberOfBlocks:(NSInteger)blocks;
--(void)breakoutGame:(BreakoutGame *)breakoutGame player:(NSString *)player hasNumberOfTurnsLeft:(NSInteger)turnsLeft;
+-(void)breakoutGame:(BreakoutGame *)breakoutGame blockGridRow:(NSInteger)row hasBlocksWithBlockDescriptors:(NSArray *)blockRowDescriptorArray;
+-(void)breakoutGame:(BreakoutGame *)breakoutGame playerName:(NSString *)player hasTurnsLeft:(NSInteger)turnsLeft withClearBoardStatus:(BOOL)isBoardCleared andCurrentScore:(NSInteger)score;
 
 @end
 
 
 @interface BreakoutGame : NSObject
 
+@property (strong, nonatomic) id<BreakoutGameDelegate> delegate;
+
 -(void)startGame;
+-(void)stopGame;
+-(void)restartGame;
 -(void)turnEnded;
--(NSInteger)destroyHitBlockAtBlockIndexPath:(BlockIndexPath *)blockIndexPath;
+-(BOOL)destroyHitBlockAtBlockDescriptor:(BlockDescriptor *)BlockDescriptor;
 
 @end

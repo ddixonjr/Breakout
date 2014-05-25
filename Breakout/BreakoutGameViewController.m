@@ -15,13 +15,14 @@
 #import "BallView.h"
 #import "BlockView.h"
 #import "RowView.h"
-#import "BlockIndexPath.h"
+#import "BlockDescriptor.h"
 
 #define kBottomBoundaryIdString @"BottomBoundary"
 #define kGamePiece
 
 @interface BreakoutGameViewController () <UICollisionBehaviorDelegate>
 
+// View Related Properties
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *turnLabel;
 @property (weak, nonatomic) IBOutlet PaddleView *paddleView;
@@ -31,9 +32,10 @@
 @property (weak, nonatomic) IBOutlet RowView *rowView2;
 @property (weak, nonatomic) IBOutlet RowView *rowView3;
 @property (weak, nonatomic) IBOutlet RowView *rowView4;
-
+@property (strong, nonatomic) NSMutableArray *allBlockViewsArray;
 @property (strong,nonatomic) NSArray *rowViewArray;
 
+// Dynamics Related Properties
 @property (strong,nonatomic) UIDynamicAnimator *dynamicAnimator;
 @property (strong,nonatomic) UIPushBehavior *pushBehavior;
 @property (strong,nonatomic) UICollisionBehavior *collisionBehavior;
@@ -41,6 +43,10 @@
 @property (strong,nonatomic) UIDynamicItemBehavior *ballItemBehavior;
 @property (strong,nonatomic) UIDynamicItemBehavior *blockItemBehavior;
 
+// Breakout Game Object Properties
+@property (strong, nonatomic) BreakoutGame *breakoutGame;
+
+// Temp Properties
 @property (strong, nonatomic) BlockView *blockView;  // Ditch this when I get the game model and programmatic blocks up and running
 
 @end
@@ -56,8 +62,13 @@
 {
     [super viewDidLoad];
 
+    self.breakoutGame = [[BreakoutGame alloc] init];
+    self.breakoutGame.delegate = self;
+    self.allBlockViewsArray = [[NSMutableArray alloc] init];
     [self initRowViewArray];
+    
     [self initializeBreakoutAnimation];
+    [self.breakoutGame startGame];
 }
 
 #pragma mark - IBAction Methods
@@ -87,29 +98,89 @@
 
 -(void)collisionBehavior:(UICollisionBehavior *)behavior beganContactForItem:(id<UIDynamicItem>)item1 withItem:(id<UIDynamicItem>)item2 atPoint:(CGPoint)p
 {
-    UIView *collidedView1 = (UIView *) item1;
-    UIView *collidedView2 = (UIView *) item2;
-    NSLog(@"Ball hit items %d and %d", collidedView1.tag, collidedView2.tag);
-    BlockView *blockHit = nil;
+    BlockView *blockViewHit = nil;
 
-    if (collidedView1.tag == kGamePieceTagBlock)
+    if ([item1 isKindOfClass:[BlockView class]])
+        blockViewHit = (BlockView *) item1;
+    else if ([item2 isKindOfClass:[BlockView class]])
+        blockViewHit = (BlockView *) item2;
+
+    if (blockViewHit !=nil && blockViewHit.tag == 3)
     {
-        [self removeBlockFromPlay:collidedView1];
-        blockHit = (BlockView *) collidedView1;
-        NSLog(@"the block hit had a position of row %d : position %d", blockHit.blockIndexPath.blockRow, blockHit.blockIndexPath.blockPosition);
-        [self updateScore];
+        if ([self.breakoutGame destroyHitBlockAtBlockDescriptor:blockViewHit.blockDescriptor])
+        {
+            [self removeBlockViewFromPlayView:blockViewHit];
+            NSLog(@"the block hit had a position of row %d : position %d and strength of %d", blockViewHit.blockDescriptor.blockRow, blockViewHit.blockDescriptor.blockPosition, blockViewHit.blockDescriptor.blockStrength);
+            [self updateScore];
+        }
     }
-
-    if (collidedView2.tag == kGamePieceTagBlock)
-    {
-        [self removeBlockFromPlay:collidedView2];
-        blockHit = (BlockView *) collidedView2;
-        NSLog(@"the block hit had a position of row %d : position %d", blockHit.blockIndexPath.blockRow, blockHit.blockIndexPath.blockPosition);
-        [self updateScore];
-    }
-
-
 }
+
+
+#pragma mark - BreakoutGameDelegate Methods
+
+-(void)breakoutGame:(BreakoutGame *)breakoutGame blockGridHasNumberOfRows:(NSInteger)rows
+{
+    NSLog(@"in breakoutGame:blockGridHasNumberOfRows");
+    // I'll use this later to vary the number of block rows based on the game object!
+}
+
+
+-(void)breakoutGame:(BreakoutGame *)breakoutGame blockGridRow:(NSInteger)row hasBlocksWithBlockDescriptors:(NSArray *)blockRowDescriptorArray
+{
+    NSLog(@"in breakoutGame:blockGridRow:hasBlockWithDescriptors - curBlkDescriptorArray has %d elements", blockRowDescriptorArray.count);
+    UIView *curRowView = [self.rowViewArray objectAtIndex:row];
+    CGFloat curRowViewWidth = curRowView.frame.size.width;
+    CGFloat totalBlockStrengthInRow = 0;
+    CGFloat widthPerStrengthUnitFactor = 0;
+    CGFloat curRowXPosition = 0;
+
+    for (BlockDescriptor *curBlockDescriptor in blockRowDescriptorArray)
+        totalBlockStrengthInRow += curBlockDescriptor.blockStrength;
+
+    widthPerStrengthUnitFactor = curRowViewWidth / totalBlockStrengthInRow;
+    NSLog(@"widthPerStrengthUnitFactor = %f curRowViewWidth = %f  totalBlockStrengthInRow = %f", widthPerStrengthUnitFactor, curRowViewWidth, totalBlockStrengthInRow);
+
+    for (BlockDescriptor *curBlockDescriptor in blockRowDescriptorArray)
+    {
+        BlockView *curNewBlock = [[BlockView alloc] initWithBlockDescriptor:curBlockDescriptor];
+        CGFloat curBlockWidth = curNewBlock.blockDescriptor.blockStrength * widthPerStrengthUnitFactor;
+        NSLog(@"curBlockStrength = %d  curBlockWidth is %f",curNewBlock.blockDescriptor.blockStrength, curBlockWidth);
+        curNewBlock.frame = CGRectMake((curRowView.frame.origin.x + curRowXPosition),
+                                       (curRowView.frame.origin.y + 2.0),
+                                       curBlockWidth, 10.0);
+        int randomNumber = arc4random_uniform(12) + 1;
+        CGFloat randomRed = 1.0/((CGFloat)randomNumber);
+        randomNumber = arc4random_uniform(12) + 1;
+        CGFloat randomGreen = 1.0/((CGFloat)randomNumber);
+        randomNumber = arc4random_uniform(12) + 1;
+        CGFloat randomBlue = 1.0/((CGFloat)randomNumber);
+        NSLog(@"randomNumber = %d random red = %f green = %f blue = %f",randomNumber, randomRed, randomGreen,randomBlue);
+        curNewBlock.backgroundColor = [UIColor colorWithRed:randomRed green:randomGreen blue:randomBlue alpha:1.0];
+
+        // load the current blockView object into the allBlocks array, superview, and UICollisionBehavior object
+        [self.allBlockViewsArray addObject:curNewBlock];
+        [self.view addSubview:curNewBlock];
+        [self.collisionBehavior addItem:curNewBlock];
+        curRowXPosition += curNewBlock.frame.size.width;
+    }
+
+    if (row == (self.rowViewArray.count - 1))   // if the current row being processed is the last
+    {                                           // then update the UICollisionBehavior and DynamicAnimator objects
+        self.blockItemBehavior = [[UIDynamicItemBehavior alloc] initWithItems:self.allBlockViewsArray];
+        self.blockItemBehavior.density = 1000;
+        self.blockItemBehavior.allowsRotation = NO;
+        [self.dynamicAnimator addBehavior:self.blockItemBehavior];
+
+    }
+}
+
+
+-(void)breakoutGame:(BreakoutGame *)breakoutGame playerName:(NSString *)player hasTurnsLeft:(NSInteger)turnsLeft withClearBoardStatus:(BOOL)isBoardCleared andCurrentScore:(NSInteger)score
+{
+    NSLog(@"in breakoutGame:playerName:hasTurnsLeft:withClearBoardStatus:andCurrentScore");
+}
+
 
 
 #pragma mark - Helper Methods
@@ -119,11 +190,10 @@
     self.scoreLabel.text = [NSString stringWithFormat:@"%d",([self.scoreLabel.text intValue]+100)];
 }
 
-- (void)removeBlockFromPlay:(UIView *)block
+- (void)removeBlockViewFromPlayView:(UIView *)blockView
 {
-    block.hidden = YES;
-    [self.collisionBehavior removeItem:block];
-
+    [self.collisionBehavior removeItem:blockView];
+    [blockView removeFromSuperview];  // since I never established a property for the object referenced by blockView, the superview has the only strong reference, so this alone should reduce retain count to zero
 }
 
 - (void)initRowViewArray
@@ -143,27 +213,28 @@
 -(void)initializeBreakoutAnimation
 {
     // Test try at programmatic placement of a block in the content view of this view controller using the rowViewX UIViews as a reference point...WORKS!!!
-    //  I'm also using my custom class BlockIndexPath to convey block position...WORKS!!!
-    BlockIndexPath *blockIndexPath = [[BlockIndexPath alloc] initWithRow:2 andPosition:5];
-    self.blockView = [[BlockView alloc] initWithBlockIndexPath:blockIndexPath];
-    self.blockView.frame = CGRectMake(self.rowView0.frame.origin.x+2,
-                                      self.rowView0.frame.origin.y+2,
-                                      100.0,10.0);
-    self.blockView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.blockView];
+    //  I'm also using my custom class BlockDescriptor to convey block position...WORKS!!!
+//    BlockDescriptor *blockDescriptor = [[BlockDescriptor alloc] initWithRow:2 andPosition:5 andStrength:1];
+//    self.blockView = [[BlockView alloc] initWithBlockDescriptor:blockDescriptor];
+//    self.blockView.frame = CGRectMake(self.rowView0.frame.origin.x+2,
+//                                      self.rowView0.frame.origin.y+2,
+//                                      200.0,10.0);
+//    self.blockView.backgroundColor = [UIColor whiteColor];
+//    [self.view addSubview:self.blockView];
+    // End of test code
 
     self.scoreLabel.text = @"0";
 
     self.ballView.center = self.view.center;
     self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
 
-    self.pushBehavior = [[UIPushBehavior alloc] initWithItems:@[self.paddleView,self.ballView,self.blockView] mode:UIPushBehaviorModeInstantaneous];
+    self.pushBehavior = [[UIPushBehavior alloc] initWithItems:@[self.ballView] mode:UIPushBehaviorModeInstantaneous];
     self.pushBehavior.pushDirection = CGVectorMake(0.5,1.0);
     self.pushBehavior.magnitude = 0.02;
     self.pushBehavior.active = YES;
     [self.dynamicAnimator addBehavior:self.pushBehavior];
 
-    self.collisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[self.paddleView,self.ballView,self.blockView]];
+    self.collisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[self.paddleView,self.ballView]];
     self.collisionBehavior.translatesReferenceBoundsIntoBoundary = YES;
     self.collisionBehavior.collisionDelegate = self;
     [self.collisionBehavior addBoundaryWithIdentifier:kBottomBoundaryIdString fromPoint:CGPointMake(0.0,480.0) toPoint:CGPointMake(320.0,480.0)];
@@ -180,11 +251,6 @@
     self.ballItemBehavior.elasticity = 1.0;
     self.ballItemBehavior.allowsRotation = NO;
     [self.dynamicAnimator addBehavior:self.ballItemBehavior];
-
-    self.blockItemBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[self.blockView]];
-    self.blockItemBehavior.density = 1000;
-    self.blockItemBehavior.allowsRotation = NO;
-    [self.dynamicAnimator addBehavior:self.blockItemBehavior];
 }
 
 
