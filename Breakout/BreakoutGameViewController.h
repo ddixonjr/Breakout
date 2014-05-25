@@ -10,7 +10,7 @@
 #import "BreakoutGame.h"
 #import "BlockDescriptor.h"
 
-@interface BreakoutGameViewController : UIViewController <BreakoutGameDelegate>
+@interface BreakoutGameViewController : UIViewController
 
 
 @end

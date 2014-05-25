@@ -20,7 +20,7 @@
 #define kBottomBoundaryIdString @"BottomBoundary"
 #define kGamePiece
 
-@interface BreakoutGameViewController () <UICollisionBehaviorDelegate>
+@interface BreakoutGameViewController () <BreakoutGameDelegate,UICollisionBehaviorDelegate,UIAlertViewDelegate>
 
 // View Related Properties
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
@@ -45,9 +45,6 @@
 
 // Breakout Game Object Properties
 @property (strong, nonatomic) BreakoutGame *breakoutGame;
-
-// Temp Properties
-@property (strong, nonatomic) BlockView *blockView;  // Ditch this when I get the game model and programmatic blocks up and running
 
 @end
 
@@ -86,13 +83,15 @@
 -(void)collisionBehavior:(UICollisionBehavior *)behavior beganContactForItem:(id<UIDynamicItem>)item withBoundaryIdentifier:(id<NSCopying>)identifier atPoint:(CGPoint)p
 {
     NSString *boundaryIdString = (NSString *) identifier;
-    //    NSLog(@"Ball hit boundary (%f,%f)",p.x,p.y);
+//  NSLog(@"Ball hit boundary (%f,%f)",p.x,p.y);
 
     if ([boundaryIdString isEqualToString:kBottomBoundaryIdString])
     {
-//        NSLog(@"Ball hit bottom");
-        self.ballView.center = self.view.center;
-        [self.dynamicAnimator updateItemUsingCurrentState:self.ballView];
+//      NSLog(@"Ball hit bottom");
+        [self.breakoutGame turnEnded];
+        [self removeBehaviorsFromDynamicAnimator];
+        if ([self.breakoutGame turnsLeftForCurrentPlayer] > 0)
+            [self displayAlertViewWithTitle:kGameStringTurnOver andMessage:@"Start next turn?" withNoButton:YES];
     }
 }
 
@@ -177,12 +176,55 @@
 
 -(void)breakoutGame:(BreakoutGame *)breakoutGame playerName:(NSString *)player hasTurnsLeft:(NSInteger)turnsLeft withClearBoardStatus:(BOOL)isBoardCleared andCurrentScore:(NSInteger)score
 {
-    NSLog(@"in breakoutGame:playerName:hasTurnsLeft:withClearBoardStatus:andCurrentScore");
+    NSLog(@"in breakoutGame:playerName:hasTurnsLeft:withClearBoardStatus:andCurrentScore turnsLeft = %d",turnsLeft);
+    self.turnLabel.text = [NSString stringWithFormat:@"%d",turnsLeft];
+    if (turnsLeft <= 0)
+    {
+        [self removeBehaviorsFromDynamicAnimator];
+        [self displayAlertViewWithTitle:kGameStringGameOver andMessage:@"Would you like to play again" withNoButton:YES];
+    }
 }
 
 
+#pragma mark - UIAlertViewDelegate Method
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0)
+    {
+        if ([alertView.title isEqualToString:kGameStringGameOver])
+        {
+            [self removeBehaviorsFromDynamicAnimator];
+            [self removeAllBlockViewsFromView];
+            [self.breakoutGame restartGame];
+            [self addBehaviorsToDynamicAnimator];
+        }
+        else if ([alertView.title isEqualToString:kGameStringTurnOver])
+        {
+            [self addBehaviorsToDynamicAnimator];
+        }
+    }
+    else
+    {
+        // segue to a game start page
+    }
+
+}
+
 
 #pragma mark - Helper Methods
+
+-(void)removeAllBlockViewsFromView
+{
+    for (UIView *curSubview in self.view.subviews)
+    {
+        if ([curSubview isKindOfClass:[BlockView class]])
+        {
+            [self.collisionBehavior removeItem:curSubview];
+            [curSubview removeFromSuperview];
+        }
+    }
+}
 
 -(void)updateScore
 {
@@ -193,8 +235,9 @@
 {
     [self.collisionBehavior removeItem:blockView];
     [self.dynamicAnimator updateItemUsingCurrentState:blockView];
-    blockView.hidden = YES;
-    [blockView removeFromSuperview];  // since I never established a property for the object referenced by blockView, the superview has the only strong reference, so this alone should reduce retain count to zero
+    // since I never established a property for the object referenced by blockView,
+    // the superview has the only strong reference, so this alone should reduce retain count to zero
+    [blockView removeFromSuperview];
 }
 
 - (void)initRowViewArray
@@ -211,42 +254,68 @@
     }
 }
 
+
+- (void)displayAlertViewWithTitle:(NSString *)title andMessage:(NSString *)message withNoButton:(BOOL)shouldHaveNoButton
+{
+    if (shouldHaveNoButton)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                            message:message
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Yes"
+                                                  otherButtonTitles:@"No",nil];
+        [alertView show];
+    }
+    else
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                            message:message
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+    }
+}
+
+
+#pragma mark - Dynamic Animator/Behavior Related Methods
+
 -(void)initializeBreakoutAnimation
 {
-    // Test try at programmatic placement of a block in the content view of this view controller using the rowViewX UIViews as a reference point...WORKS!!!
-    //  I'm also using my custom class BlockDescriptor to convey block position...WORKS!!!
-//    BlockDescriptor *blockDescriptor = [[BlockDescriptor alloc] initWithRow:2 andPosition:5 andStrength:1];
-//    self.blockView = [[BlockView alloc] initWithBlockDescriptor:blockDescriptor];
-//    self.blockView.frame = CGRectMake(self.rowView0.frame.origin.x+2,
-//                                      self.rowView0.frame.origin.y+2,
-//                                      200.0,10.0);
-//    self.blockView.backgroundColor = [UIColor whiteColor];
-//    [self.view addSubview:self.blockView];
-    // End of test code
-
     self.scoreLabel.text = @"0";
-
     self.ballView.center = self.view.center;
-    self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+    [self instantiateDynamicAnimatorAndBehaviors];
+    [self addBehaviorsToDynamicAnimator];
+}
 
+
+- (void)instantiateDynamicAnimatorAndBehaviors
+{
+    self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
     self.pushBehavior = [[UIPushBehavior alloc] initWithItems:@[self.ballView] mode:UIPushBehaviorModeInstantaneous];
+    self.collisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[self.paddleView,self.ballView]];
+    self.paddleItemBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[self.paddleView]];
+    self.ballItemBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[self.ballView]];
+}
+
+
+- (void)addBehaviorsToDynamicAnimator
+{
+    [NSThread sleepForTimeInterval:2.0];
     self.pushBehavior.pushDirection = CGVectorMake(0.5,1.0);
     self.pushBehavior.magnitude = 0.02;
     self.pushBehavior.active = YES;
     [self.dynamicAnimator addBehavior:self.pushBehavior];
 
-    self.collisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[self.paddleView,self.ballView]];
     self.collisionBehavior.translatesReferenceBoundsIntoBoundary = YES;
     self.collisionBehavior.collisionDelegate = self;
     [self.collisionBehavior addBoundaryWithIdentifier:kBottomBoundaryIdString fromPoint:CGPointMake(0.0,480.0) toPoint:CGPointMake(320.0,480.0)];
     [self.dynamicAnimator addBehavior:self.collisionBehavior];
 
-    self.paddleItemBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[self.paddleView]];
     self.paddleItemBehavior.density = 1000;
     self.paddleItemBehavior.allowsRotation = NO;
     [self.dynamicAnimator addBehavior:self.paddleItemBehavior];
 
-    self.ballItemBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[self.ballView]];
     self.ballItemBehavior.friction = 0.0;
     self.ballItemBehavior.resistance = 0.0;
     self.ballItemBehavior.elasticity = 1.0;
@@ -254,6 +323,15 @@
     [self.dynamicAnimator addBehavior:self.ballItemBehavior];
 }
 
+
+- (void)removeBehaviorsFromDynamicAnimator
+{
+    [self.dynamicAnimator removeBehavior:self.pushBehavior];
+    [self.dynamicAnimator removeBehavior:self.collisionBehavior];
+    [self.dynamicAnimator removeBehavior:self.paddleItemBehavior];
+    [self.dynamicAnimator removeBehavior:self.ballItemBehavior];
+    self.ballView.center = self.view.center;
+}
 
 @end
 

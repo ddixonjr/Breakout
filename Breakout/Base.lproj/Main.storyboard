@@ -13,7 +13,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="Zoe-MJ-W45" customClass="PaddleView">
-                                <rect key="frame" x="250" y="450" width="50" height="10"/>
+                                <rect key="frame" x="234" y="411" width="66" height="15"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.3081378180431531" green="0.55217025651726048" blue="0.62755102040816324" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>

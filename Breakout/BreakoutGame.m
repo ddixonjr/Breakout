@@ -13,7 +13,6 @@
 @interface BreakoutGame ()
 
 @property (strong, nonatomic) NSMutableArray *players;
-@property (assign, nonatomic) NSInteger numberOfPlayers;
 @property (assign, nonatomic) NSInteger curPlayerIndex;
 @property (strong, nonatomic) BlockGrid *blockGrid;
 
@@ -60,13 +59,14 @@
 
 -(void)stopGame
 {
-
+    self.blockGrid = nil;
 }
 
 
 -(void)restartGame
 {
-
+    [self stopGame];
+    [self startGame];
 }
 
 
@@ -83,7 +83,7 @@
         if ([self.delegate respondsToSelector:@selector(breakoutGame:playerName:hasTurnsLeft:withClearBoardStatus:andCurrentScore:)])
         {
             // CRITICAL QUESTION: Is it ok for me to call a delegate method on my delegate now
-            //    while this method hasn't yet returned to my delegate???
+            //    while this method hasn't yet returned to my delegate???  ...seems to work fine but I have to confirm if this is good design practice
             [self.delegate breakoutGame:self playerName:curPlayer.name hasTurnsLeft:curPlayer.turnsLeft withClearBoardStatus:NO andCurrentScore:curPlayer.score];
         }
     }
@@ -93,8 +93,24 @@
 
 -(void)turnEnded
 {
+    Player *curPlayer = [self.players objectAtIndex:self.curPlayerIndex];
+    curPlayer.turnsLeft--;
     self.curPlayerIndex++;
-    self.curPlayerIndex %= self.numberOfPlayers;
+    self.curPlayerIndex %= self.players.count;
+
+    if ([self.delegate respondsToSelector:@selector(breakoutGame:playerName:hasTurnsLeft:withClearBoardStatus:andCurrentScore:)])
+    {
+        // CRITICAL QUESTION: Is it ok for me to call a delegate method on my delegate now
+        //    while this method hasn't yet returned to my delegate???  ...seems to work fine but I have to confirm if this is good design practice
+        [self.delegate breakoutGame:self playerName:curPlayer.name hasTurnsLeft:curPlayer.turnsLeft withClearBoardStatus:NO andCurrentScore:curPlayer.score];
+    }
+
+}
+
+
+-(NSInteger)turnsLeftForCurrentPlayer
+{
+    return [[self.players objectAtIndex:self.curPlayerIndex] turnsLeft];
 }
 
 

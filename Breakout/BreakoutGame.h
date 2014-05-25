@@ -29,5 +29,6 @@
 -(void)restartGame;
 -(void)turnEnded;
 -(BOOL)destroyHitBlockWithBlockDescriptor:(BlockDescriptor *)BlockDescriptor;
+-(NSInteger)turnsLeftForCurrentPlayer;
 
 @end

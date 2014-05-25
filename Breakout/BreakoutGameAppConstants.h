@@ -13,5 +13,7 @@
 #define kGamePieceTagBall 2
 #define kGamePieceTagBlock 3
 #define kDefaultNumberOfTurns 3
+#define kGameStringGameOver @"Game Over"
+#define kGameStringTurnOver @"Turn Over"
 
 #endif
