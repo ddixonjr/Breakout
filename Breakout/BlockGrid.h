@@ -18,5 +18,6 @@
 - (NSInteger)destroyBlockWithBlockDescriptor:(BlockDescriptor *)BlockDescriptor;
 - (NSInteger)numberOfBlocksInRowWithBlockDescriptor:(BlockDescriptor *)BlockDescriptor;
 - (NSInteger)blockStrengthOfBlockWithBlockDescriptor:(BlockDescriptor *)BlockDescriptor;
+- (BOOL)isBlockGridCleared;
 
 @end

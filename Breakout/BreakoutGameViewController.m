@@ -18,7 +18,11 @@
 #import "BlockDescriptor.h"
 
 #define kBottomBoundaryIdString @"BottomBoundary"
-#define kGamePiece
+#define kGamePiecePaddleStartCenterPosition 267.0
+#define kGamePieceBlockHeight 14.0
+#define kGamePieceBlockRowSpacing 2.0
+#define kGamePieceBlockInterblockSpacing 2.0
+
 
 @interface BreakoutGameViewController () <BreakoutGameDelegate,UICollisionBehaviorDelegate,UIAlertViewDelegate>
 
@@ -32,8 +36,9 @@
 @property (weak, nonatomic) IBOutlet RowView *rowView2;
 @property (weak, nonatomic) IBOutlet RowView *rowView3;
 @property (weak, nonatomic) IBOutlet RowView *rowView4;
-@property (strong, nonatomic) NSMutableArray *allBlockViewsArray;
 @property (strong,nonatomic) NSArray *rowViewArray;
+@property (strong, nonatomic) NSMutableArray *allBlockViewsArray;
+@property (strong, nonatomic) NSMutableArray *destroyedBlockViewsArray;
 
 // Dynamics Related Properties
 @property (strong,nonatomic) UIDynamicAnimator *dynamicAnimator;
@@ -62,11 +67,17 @@
     self.breakoutGame = [[BreakoutGame alloc] init];
     self.breakoutGame.delegate = self;
     self.allBlockViewsArray = [[NSMutableArray alloc] init];
+    self.destroyedBlockViewsArray = [[NSMutableArray alloc] init];
+
     [self initRowViewArray];
-    
     [self initializeBreakoutAnimation];
     [self.breakoutGame startGame];
 }
+
+//-(void)viewDidAppear:(BOOL)animated
+//{
+//    [self unhideBlockViewsInSuperview:YES];
+//}
 
 #pragma mark - IBAction Methods
 
@@ -80,7 +91,7 @@
 
 #pragma mark - UICollisionBehaviorDelegate Methods
 
--(void)collisionBehavior:(UICollisionBehavior *)behavior beganContactForItem:(id<UIDynamicItem>)item withBoundaryIdentifier:(id<NSCopying>)identifier atPoint:(CGPoint)p
+- (void)collisionBehavior:(UICollisionBehavior *)behavior beganContactForItem:(id<UIDynamicItem>)item withBoundaryIdentifier:(id<NSCopying>)identifier atPoint:(CGPoint)p
 {
     NSString *boundaryIdString = (NSString *) identifier;
 //  NSLog(@"Ball hit boundary (%f,%f)",p.x,p.y);
@@ -91,11 +102,15 @@
         [self.breakoutGame turnEnded];
         [self removeBehaviorsFromDynamicAnimator];
         if ([self.breakoutGame turnsLeftForCurrentPlayer] > 0)
+        {
+            [self resetPaddleToStartPosition];
             [self displayAlertViewWithTitle:kGameStringTurnOver andMessage:@"Start next turn?" withNoButton:YES];
+
+        }
     }
 }
 
--(void)collisionBehavior:(UICollisionBehavior *)behavior beganContactForItem:(id<UIDynamicItem>)item1 withItem:(id<UIDynamicItem>)item2 atPoint:(CGPoint)p
+- (void)collisionBehavior:(UICollisionBehavior *)behavior beganContactForItem:(id<UIDynamicItem>)item1 withItem:(id<UIDynamicItem>)item2 atPoint:(CGPoint)p
 {
     BlockView *blockViewHit = nil;
 
@@ -104,11 +119,13 @@
     else if ([item2 isKindOfClass:[BlockView class]])
         blockViewHit = (BlockView *) item2;
 
-    if (blockViewHit !=nil && blockViewHit.tag == 3)
+    if (blockViewHit !=nil)
     {
         if ([self.breakoutGame destroyHitBlockWithBlockDescriptor:blockViewHit.blockDescriptor])
         {
-            [self removeBlockViewFromPlayView:blockViewHit];
+            [self animateBlockBeforeRemoval:blockViewHit];
+            [self.destroyedBlockViewsArray addObject:blockViewHit];
+            // 'Destroyed' BlockView is then removed in the method (removeDestroyedBlockViewsFromPlayView) that I set to be the UIView animation call back method for post animation actions
             NSLog(@"the block hit had a position of row %d : position %d and strength of %d", blockViewHit.blockDescriptor.blockRow, blockViewHit.blockDescriptor.blockPosition, blockViewHit.blockDescriptor.blockStrength);
             [self updateScore];
         }
@@ -118,54 +135,61 @@
 
 #pragma mark - BreakoutGameDelegate Methods
 
--(void)breakoutGame:(BreakoutGame *)breakoutGame blockGridHasNumberOfRows:(NSInteger)rows
+- (void)breakoutGame:(BreakoutGame *)breakoutGame blockGridHasNumberOfRows:(NSInteger)rows
 {
     NSLog(@"in breakoutGame:blockGridHasNumberOfRows");
     // I'll use this later to vary the number of block rows based on the game object!
 }
 
 
--(void)breakoutGame:(BreakoutGame *)breakoutGame blockGridRow:(NSInteger)row hasBlocksWithBlockDescriptors:(NSArray *)blockRowDescriptorArray
+- (void)breakoutGame:(BreakoutGame *)breakoutGame blockGridRow:(NSInteger)row hasBlocksWithBlockDescriptors:(NSArray *)blockRowDescriptorArray
 {
     NSLog(@"in breakoutGame:blockGridRow:hasBlockWithDescriptors - curBlkDescriptorArray has %d elements", blockRowDescriptorArray.count);
     UIView *curRowView = [self.rowViewArray objectAtIndex:row];
     CGFloat curRowViewWidth = curRowView.frame.size.width;
+    CGFloat adjustedRowViewWidthForBlockSpacing = curRowViewWidth - ((CGFloat)((kGamePieceBlockInterblockSpacing * blockRowDescriptorArray.count) + kGamePieceBlockInterblockSpacing));
     CGFloat totalBlockStrengthInRow = 0;
     CGFloat widthPerStrengthUnitFactor = 0;
-    CGFloat curRowXPosition = 0;
+    CGFloat curRowXPosition = kGamePieceBlockInterblockSpacing;
 
     for (BlockDescriptor *curBlockDescriptor in blockRowDescriptorArray)
         totalBlockStrengthInRow += curBlockDescriptor.blockStrength;
 
-    widthPerStrengthUnitFactor = curRowViewWidth / totalBlockStrengthInRow;
-    NSLog(@"widthPerStrengthUnitFactor = %f curRowViewWidth = %f  totalBlockStrengthInRow = %f", widthPerStrengthUnitFactor, curRowViewWidth, totalBlockStrengthInRow);
+    widthPerStrengthUnitFactor = adjustedRowViewWidthForBlockSpacing / totalBlockStrengthInRow;
+//    NSLog(@"widthPerStrengthUnitFactor = %f curRowViewWidth = %f adjustedRowWidth %f totalBlockStrengthInRow = %f", widthPerStrengthUnitFactor, curRowViewWidth, adjustedRowViewWidthForBlockSpacing, totalBlockStrengthInRow);
 
+    // For each block descriptor in the current row of blocks passed in from the BreakoutGame object,
+    //   create a row of BlockViews (each having a width proportional to its 'strength') and pass in the BlockView
+    //   for later identification to the block grid in the BreakoutGame object
     for (BlockDescriptor *curBlockDescriptor in blockRowDescriptorArray)
     {
         BlockView *curNewBlock = [[BlockView alloc] initWithBlockDescriptor:curBlockDescriptor];
         CGFloat curBlockWidth = curNewBlock.blockDescriptor.blockStrength * widthPerStrengthUnitFactor;
-        NSLog(@"curBlockStrength = %d  curBlockWidth is %f",curNewBlock.blockDescriptor.blockStrength, curBlockWidth);
+//        NSLog(@"curBlockStrength = %d  curBlockWidth is %f  curRowXPosition %f",curNewBlock.blockDescriptor.blockStrength, curBlockWidth, curRowXPosition);
         curNewBlock.frame = CGRectMake((curRowView.frame.origin.x + curRowXPosition),
-                                       (curRowView.frame.origin.y + 2.0),
-                                       curBlockWidth, 14.0);
+                                       (curRowView.frame.origin.y + kGamePieceBlockRowSpacing),
+                                       curBlockWidth, kGamePieceBlockHeight);
+
         int randomNumber = arc4random_uniform(12) + 1;
         CGFloat randomRed = 1.0/((CGFloat)randomNumber);
-        randomNumber = arc4random_uniform(12) + 1;
+        randomNumber = arc4random_uniform(7) + 1;
         CGFloat randomGreen = 1.0/((CGFloat)randomNumber);
-        randomNumber = arc4random_uniform(12) + 1;
+        randomNumber = arc4random_uniform(9) + 1;
         CGFloat randomBlue = 1.0/((CGFloat)randomNumber);
-        NSLog(@"randomNumber = %d random red = %f green = %f blue = %f",randomNumber, randomRed, randomGreen,randomBlue);
         curNewBlock.backgroundColor = [UIColor colorWithRed:randomRed green:randomGreen blue:randomBlue alpha:1.0];
 
         // load the current blockView object into the allBlocks array, superview, and UICollisionBehavior object
         [self.allBlockViewsArray addObject:curNewBlock];
         [self.view addSubview:curNewBlock];
         [self.collisionBehavior addItem:curNewBlock];
-        curRowXPosition += curNewBlock.frame.size.width;
+        [self.dynamicAnimator updateItemUsingCurrentState:curNewBlock];
+        curRowXPosition = curRowXPosition + curNewBlock.frame.size.width + kGamePieceBlockInterblockSpacing;
     }
 
-    if (row == (self.rowViewArray.count - 1))   // if the current row being processed is the last
-    {                                           // then update the UICollisionBehavior and DynamicAnimator objects
+    // If the current row being processed was the last then create the
+    //   DynamicItemBehavior object for the blockViews and update the DynamicAnimator objects
+    if (row == (self.rowViewArray.count - 1))
+    {
         self.blockItemBehavior = [[UIDynamicItemBehavior alloc] initWithItems:self.allBlockViewsArray];
         self.blockItemBehavior.density = 1000;
         self.blockItemBehavior.allowsRotation = NO;
@@ -174,14 +198,20 @@
 }
 
 
--(void)breakoutGame:(BreakoutGame *)breakoutGame playerName:(NSString *)player hasTurnsLeft:(NSInteger)turnsLeft withClearBoardStatus:(BOOL)isBoardCleared andCurrentScore:(NSInteger)score
+- (void)breakoutGame:(BreakoutGame *)breakoutGame playerName:(NSString *)player hasTurnsLeft:(NSInteger)turnsLeft withClearBoardStatus:(BOOL)isBoardCleared andCurrentScore:(NSInteger)score
 {
     NSLog(@"in breakoutGame:playerName:hasTurnsLeft:withClearBoardStatus:andCurrentScore turnsLeft = %d",turnsLeft);
     self.turnLabel.text = [NSString stringWithFormat:@"%d",turnsLeft];
     if (turnsLeft <= 0)
     {
         [self removeBehaviorsFromDynamicAnimator];
-        [self displayAlertViewWithTitle:kGameStringGameOver andMessage:@"Would you like to play again" withNoButton:YES];
+        [self displayAlertViewWithTitle:kGameStringGameOver andMessage:@"Would you like to play again?" withNoButton:YES];
+    }
+    else if (isBoardCleared)
+    {
+        [self removeBehaviorsFromDynamicAnimator];
+        [self displayAlertViewWithTitle:kGameStringClearedBoard andMessage:@"Great Job!\nKeep Going?" withNoButton:YES];
+
     }
 }
 
@@ -192,15 +222,17 @@
 {
     if (buttonIndex == 0)
     {
-        if ([alertView.title isEqualToString:kGameStringGameOver])
+        [self resetPaddleToStartPosition];
+
+        if ([alertView.title isEqualToString:kGameStringGameOver] || [alertView.title isEqualToString:kGameStringClearedBoard])
         {
-            [self removeBehaviorsFromDynamicAnimator];
             [self removeAllBlockViewsFromView];
             [self.breakoutGame restartGame];
             [self addBehaviorsToDynamicAnimator];
         }
         else if ([alertView.title isEqualToString:kGameStringTurnOver])
         {
+
             [self addBehaviorsToDynamicAnimator];
         }
     }
@@ -208,13 +240,23 @@
     {
         // segue to a game start page
     }
-
 }
 
 
 #pragma mark - Helper Methods
 
--(void)removeAllBlockViewsFromView
+//- (void)unhideBlockViewsInSuperview:(BOOL)animated
+//{
+//    for (UIView *curBlock in self.allBlockViewsArray)
+//    {
+//        [UIView animateWithDuration:0.2 animations:^{
+//            curBlock.alpha = 1.0;
+//        }];
+//    }
+//}
+
+
+- (void)removeAllBlockViewsFromView
 {
     for (UIView *curSubview in self.view.subviews)
     {
@@ -226,18 +268,67 @@
     }
 }
 
--(void)updateScore
+- (void)updateScore
 {
     self.scoreLabel.text = [NSString stringWithFormat:@"%d",([self.scoreLabel.text intValue]+100)];
 }
 
+- (void)resetPaddleToStartPosition
+{
+    self.paddleView.center = CGPointMake(kGamePiecePaddleStartCenterPosition,self.paddleView.center.y);
+    [self.dynamicAnimator updateItemUsingCurrentState:self.paddleView];
+}
+
+
+- (void)animateBlockBeforeRemoval:(UIView *)blockView;
+{
+    NSLog(@"in animateBlockBeforeRemoval - backgroundColor on entry %@",blockView.backgroundColor);
+    [UIView beginAnimations:@"BlockView Removal Animations" context:nil];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+    blockView.backgroundColor = [UIColor whiteColor];  // Gives the spot a white background on the 'curl up'...nice!
+    [UIView setAnimationDuration:0.3];
+    [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:blockView cache:NO];
+    [UIView commitAnimations];
+}
+
+
+//  replaced "- (void)removeDestroyedBlockViewsFromPlayView" as a clean way to do something after the UIView animation completes
+- (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+    NSLog(@"in animationDidStop:finished:context:");
+    for (UIView *curBlockView in self.destroyedBlockViewsArray)
+    {
+        [curBlockView removeFromSuperview];
+        [self.collisionBehavior removeItem:curBlockView];
+        [self.dynamicAnimator updateItemUsingCurrentState:curBlockView];
+    }
+    [self.destroyedBlockViewsArray removeAllObjects];
+}
+
+
 - (void)removeBlockViewFromPlayView:(UIView *)blockView
 {
-    [self.collisionBehavior removeItem:blockView];
-    [self.dynamicAnimator updateItemUsingCurrentState:blockView];
+//    Perform some animation before block disappears
+//    Tries 1 and 2
+//    [self.collisionBehavior removeItem:blockView];
+//    [self.dynamicAnimator updateItemUsingCurrentState:blockView];
+//
+//    [UIView animateWithDuration:1.0 animations:^{
+//        blockView.backgroundColor = [UIColor whiteColor];
+//        blockView.alpha = 0.0;
+//        blockView.center = CGPointMake(-100.0,-100.0);
+//    }];
+//    [NSThread sleepForTimeInterval:0.5];
+
+//    Try 3 -- even
+//    UISnapBehavior *blockSnapToGoneBehavior = [[UISnapBehavior alloc] initWithItem:blockView snapToPoint:CGPointMake(-200.0, -200.0)];
+//    [self.dynamicAnimator addBehavior:blockSnapToGoneBehavior];
+
     // since I never established a property for the object referenced by blockView,
     // the superview has the only strong reference, so this alone should reduce retain count to zero
     [blockView removeFromSuperview];
+    [self.collisionBehavior removeItem:blockView];
 }
 
 - (void)initRowViewArray
@@ -280,7 +371,7 @@
 
 #pragma mark - Dynamic Animator/Behavior Related Methods
 
--(void)initializeBreakoutAnimation
+- (void)initializeBreakoutAnimation
 {
     self.scoreLabel.text = @"0";
     self.ballView.center = self.view.center;

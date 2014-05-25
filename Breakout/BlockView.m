@@ -16,7 +16,7 @@
     if (self) {
         self.tag = kGamePieceTagBlock;
     }
-    NSLog(@"in initWithCoder for a BlockView");
+//    NSLog(@"in initWithCoder for a BlockView");
     return self;
 }
 
@@ -34,7 +34,7 @@
         self.tag = kGamePieceTagBlock;
         self.blockDescriptor = blockDescriptor;
     }
-    NSLog(@"in initWithBlockDescriptor for a BlockView");
+//    NSLog(@"in initWithBlockDescriptor for a BlockView");
     return self;
 }
 

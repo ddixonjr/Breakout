@@ -15,5 +15,9 @@
 #define kDefaultNumberOfTurns 3
 #define kGameStringGameOver @"Game Over"
 #define kGameStringTurnOver @"Turn Over"
+#define kGameStringClearedBoard @"Board Cleared!"
+#define kDefaultMaxBlockGridRows  5
+#define kDefaultMaxBlockGridBlocksPerRow  10
+#define kDefaultMaxBlockHitsToDestroy  2
 
 #endif

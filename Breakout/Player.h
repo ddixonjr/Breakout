@@ -15,7 +15,8 @@
 @property (assign, nonatomic) NSInteger score;
 @property (assign, readonly, nonatomic) BOOL turnsGone;
 
--(id)initWithName:(NSString *)name andTurnsAtStart:(NSInteger)turnsAtStart;
--(void)turnLost;
+- (id)initWithName:(NSString *)name andTurnsAtStart:(NSInteger)turnsAtStart;
+- (void)turnLost;
+- (void)resetForStartOfPlay;
 
 @end

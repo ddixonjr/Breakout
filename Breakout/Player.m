@@ -16,12 +16,12 @@
 
 @implementation Player
 
--(id)init
+- (id)init
 {
     return [self initWithName:@"Player 1" andTurnsAtStart:kDefaultNumberOfTurns];
 }
 
--(id)initWithName:(NSString *)name andTurnsAtStart:(NSInteger)turnsAtStart
+- (id)initWithName:(NSString *)name andTurnsAtStart:(NSInteger)turnsAtStart
 {
     self = [super init];
     if (self)
@@ -34,7 +34,7 @@
     return self;
 }
 
--(void)turnLost
+- (void)turnLost
 {
     self.turnsLeft--;
     if (self.turnsLeft <= 0)
@@ -43,6 +43,13 @@
     }
     else
         self.turnsGone = NO;
+}
+
+
+- (void)resetForStartOfPlay
+{
+    self.score = 0;
+    self.turnsLeft = kDefaultNumberOfTurns;
 }
 
 @end
