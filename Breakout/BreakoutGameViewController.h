@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "BreakoutGame.h"
 #import "BlockDescriptor.h"
+#import "PlayersManager.h"
 
 @interface BreakoutGameViewController : UIViewController
 
+@property (strong, nonatomic) PlayersManager *playersManager;
 
 @end

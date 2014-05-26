@@ -109,7 +109,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ovL-V1-6Gk" kind="unwind" unwindAction="unwindToPlayerListWithSegue:" id="i7S-eB-YLD"/>
+                                    <action selector="onExitGameActionPerformed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ZY6-bL-iRK"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -122,6 +122,7 @@
                     <connections>
                         <outlet property="ballView" destination="nHH-RN-o9p" id="lz4-Z9-yAE"/>
                         <outlet property="paddleView" destination="Zoe-MJ-W45" id="Bgz-2f-5Su"/>
+                        <outlet property="playerNameLabel" destination="mUt-WJ-NCV" id="lBe-qt-pVc"/>
                         <outlet property="rowView0" destination="3wr-A7-0pm" id="Ug6-jV-yOj"/>
                         <outlet property="rowView1" destination="oKm-Ka-Tdn" id="yfj-B0-6XC"/>
                         <outlet property="rowView2" destination="H2R-ED-Mc3" id="FVy-W2-Fa7"/>
@@ -129,6 +130,7 @@
                         <outlet property="rowView4" destination="zOX-BX-5nQ" id="RPb-Nd-Yum"/>
                         <outlet property="scoreLabel" destination="uWy-Ig-PvQ" id="ger-Ov-1Fy"/>
                         <outlet property="turnLabel" destination="3Hm-ZU-VgW" id="7LF-LV-hls"/>
+                        <segue destination="ovL-V1-6Gk" kind="unwind" identifier="GameUnwindSegue" unwindAction="unwindToPlayerListWithSegue:" id="72i-Ft-TBj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -140,7 +142,7 @@
                 </panGestureRecognizer>
                 <swipeGestureRecognizer direction="right" id="lYv-ne-Fe0">
                     <connections>
-                        <segue destination="ovL-V1-6Gk" kind="unwind" unwindAction="unwindToPlayerListWithSegue:" id="ccn-hQ-9d8"/>
+                        <action selector="onExitGameActionPerformed:" destination="vXZ-lx-hvc" id="A9X-Gk-2pa"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
@@ -221,14 +223,15 @@
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Player Detail" id="Cu3-FQ-78L">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="oaH-dw-pPv">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="oaH-dw-pPv">
                             <connections>
-                                <action selector="onDoneButtonPressed:" destination="2M0-Xb-XoX" id="58p-9l-U5Y"/>
+                                <action selector="onEditButtonPressed:" destination="2M0-Xb-XoX" id="qDH-33-wFq"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="playerNameTextField" destination="OyP-p1-SDO" id="Q7c-AO-5Ww"/>
+                        <outlet property="updateButton" destination="oaH-dw-pPv" id="XI3-uy-zXK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jog-tX-u3h" userLabel="First Responder" sceneMemberID="firstResponder"/>

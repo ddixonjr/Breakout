@@ -8,8 +8,12 @@
 
 #import "PlayerDetailViewController.h"
 
+
 @interface PlayerDetailViewController ()
+
 @property (weak, nonatomic) IBOutlet UITextField *playerNameTextField;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *updateButton;
+@property (assign, nonatomic) BOOL isExistingPlayer;
 
 @end
 
@@ -18,13 +22,58 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.playerNameTextField.text = self.playerName;
 
+    self.newPlayerAdded = NO;
+    if (self.player != nil)
+    {
+        self.editing = NO;
+        self.isExistingPlayer = YES;
+        self.playerNameTextField.userInteractionEnabled = NO;
+        self.playerNameTextField.text = self.player.name;
+        [self.updateButton setTitle:@"Edit"];
+    }
+    else
+    {
+        self.editing = YES;
+        self.isExistingPlayer = NO;
+        self.playerNameTextField.userInteractionEnabled = YES;
+        [self.playerNameTextField becomeFirstResponder];
+        [self.updateButton setTitle:@"Done"];
+    }
 }
 
-- (IBAction)onDoneButtonPressed:(id)sender
-{
 
+- (IBAction)onEditButtonPressed:(id)sender
+{
+    self.editing = !self.editing;
+    if (self.editing)
+    {
+        self.playerNameTextField.userInteractionEnabled = YES;
+        [self.playerNameTextField becomeFirstResponder];
+        [self.updateButton setTitle:@"Done"];
+    }
+    else
+    {
+        if ([self.playerNameTextField.text length] > 0)
+        {
+            [self.playerNameTextField resignFirstResponder];
+            if (self.isExistingPlayer ||
+               (!self.isExistingPlayer && self.newPlayerAdded))
+            {
+                self.player.name = self.playerNameTextField.text;
+                self.playerNameTextField.userInteractionEnabled = NO;
+                self.playerNameTextField.text = self.player.name;
+                [self.updateButton setTitle:@"Edit"];
+            }
+            else if (!self.isExistingPlayer && !self.newPlayerAdded)
+            {
+                self.player = [[Player alloc] init];
+                self.player.name = self.playerNameTextField.text;
+                self.newPlayerAdded = YES;
+                [self.playersManager addPlayer:self.player];
+            }
+        }
+    }
 }
 
 
@@ -32,6 +81,5 @@
 {
     [self.playerNameTextField resignFirstResponder];
 }
-
 
 @end

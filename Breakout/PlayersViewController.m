@@ -9,11 +9,17 @@
 #import "PlayersViewController.h"
 #import "BreakoutGameViewController.h"
 #import "PlayerDetailViewController.h"
+#import "PlayersManager.h"
+#import "Player.h"
+
 
 @interface PlayersViewController () <UITableViewDataSource,UITableViewDelegate>
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) PlayersManager *playersManager;
 
 @end
+
 
 @implementation PlayersViewController 
 
@@ -21,23 +27,32 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.players = [NSMutableArray arrayWithObject:@"Player 1"];
+    self.playersManager = [[PlayersManager alloc] init];
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.players = [self.playersManager allPlayers];
+    [self.tableView reloadData];
+}
+
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.players.count;
 }
 
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlayerCell"];
-    cell.textLabel.text = [self.players objectAtIndex:indexPath.row];
-
+    Player *curPlayer = [self.players objectAtIndex:indexPath.row];
+    cell.textLabel.text = curPlayer.name;
     return cell;
 }
-
 
 
 - (IBAction)onAddButtonPressed:(id)sender
@@ -51,6 +66,7 @@
     [self performSegueWithIdentifier:@"PlayBreakoutSegue" sender:sender];
 }
 
+// Refactor this interaction between this and the players detail view controller
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"PlayerDetailSegue"])
@@ -58,18 +74,34 @@
         NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
         [self.tableView deselectRowAtIndexPath:selectedIndexPath animated:NO];
         PlayerDetailViewController *playerDetailVC = segue.destinationViewController;
-        playerDetailVC.playerName = (selectedIndexPath != nil) ? [self.players objectAtIndex:selectedIndexPath.row] :  kEmptyNSString;
-
+        if (selectedIndexPath != nil)
+        {
+            Player *selectedPlayer = [self.players objectAtIndex:selectedIndexPath.row];
+            playerDetailVC.player = selectedPlayer;
+         }
+        else
+        {
+            playerDetailVC.playersManager = self.playersManager;
+            playerDetailVC.player = nil;
+        }
     }
     else if ([segue.identifier isEqualToString:@"PlayBreakoutSegue"])
     {
         //  prepare to segue to the game VC
+        BreakoutGameViewController *breakoutGameVC = segue.destinationViewController;
+        breakoutGameVC.playersManager  = self.playersManager;
     }
 }
 
 - (IBAction)unwindToPlayerListWithSegue:(UIStoryboardSegue *)segue
 {
-    
+//    PlayerDetailViewController *playerDetailVC = segue.sourceViewController;
+//
+//    if (playerDetailVC.newPlayerAdded)
+//    {
+//        [self.players addObject:playerDetailVC.player];
+//    }
+//    [self.tableView reloadData];
 }
 
 @end

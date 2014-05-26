@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PlayersManager.h"
+#import "Player.h"
 
 @interface PlayerDetailViewController : UIViewController
 
-@property (strong, nonatomic) NSString *playerName;
+@property (strong, nonatomic) Player *player;
+@property (strong, nonatomic) PlayersManager *playersManager;
+@property (assign, nonatomic) BOOL newPlayerAdded;
 
 @end

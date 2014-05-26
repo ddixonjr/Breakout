@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BlockDescriptor.h"
+#import "PlayersManager.h"
 
 @class BreakoutGame;
 
@@ -23,6 +24,7 @@
 @interface BreakoutGame : NSObject
 
 @property (strong, nonatomic) id<BreakoutGameDelegate> delegate;
+@property (strong, nonatomic) PlayersManager *playersManager;
 
 -(void)startGame;
 -(void)stopGame;

@@ -10,6 +10,7 @@
 #import "Player.h"
 #import "BlockGrid.h"
 
+
 @interface BreakoutGame ()
 
 @property (strong, nonatomic) NSMutableArray *players;
@@ -26,11 +27,12 @@
 {
     NSLog(@"in BreakoutGame: startGame");
     self.curPlayerIndex = 0;
+    self.players = [self.playersManager allPlayers];
     [self initPlayers];
     self.blockGrid = [[BlockGrid alloc] initRandomBlockGridWithDifficulty:1];
 
-    Player *testPlayer1 = [[Player alloc] init];
-    self.players = [NSMutableArray arrayWithArray:@[testPlayer1]];
+//    Player *testPlayer1 = [[Player alloc] init];
+//    self.players = [NSMutableArray arrayWithArray:@[testPlayer1]];
 
     if ([self.delegate respondsToSelector:@selector(breakoutGame:blockGridHasNumberOfRows:)] &&
         [self.delegate respondsToSelector:@selector(breakoutGame:blockGridRow:hasBlocksWithBlockDescriptors:)])
@@ -62,7 +64,6 @@
             Player *curPlayer = [self.players objectAtIndex:self.curPlayerIndex];
             [self.delegate breakoutGame:self playerName:curPlayer.name hasTurnsLeft:curPlayer.turnsLeft withClearBoardStatus:NO andCurrentScore:curPlayer.score];
         }
-
     }
 }
 
@@ -70,6 +71,7 @@
 - (void)stopGame
 {
     self.blockGrid = nil;
+    // do I need to do more here to support the new separate Players model component?
 }
 
 

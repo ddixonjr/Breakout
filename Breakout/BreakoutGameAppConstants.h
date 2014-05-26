@@ -15,10 +15,13 @@
 #define kDefaultNumberOfTurns 3
 #define kGameStringGameOver @"Game Over"
 #define kGameStringTurnOver @"Turn Over"
+#define kGameStringExitPrompt @"Leaving?"
 #define kGameStringClearedBoard @"Board Cleared!"
 #define kDefaultMaxBlockGridRows  5
 #define kDefaultMaxBlockGridBlocksPerRow  10
 #define kDefaultMaxBlockHitsToDestroy  2
 #define kEmptyNSString @""
+#define kPlayerViewModeEdit 0
+#define kPlayerViewModeAdd 1
 
 #endif

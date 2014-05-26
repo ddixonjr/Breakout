@@ -27,6 +27,7 @@
 @interface BreakoutGameViewController () <BreakoutGameDelegate,UICollisionBehaviorDelegate,UIAlertViewDelegate>
 
 // View Related Properties
+@property (weak, nonatomic) IBOutlet UILabel *playerNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *turnLabel;
 @property (weak, nonatomic) IBOutlet PaddleView *paddleView;
@@ -66,6 +67,7 @@
 
     self.breakoutGame = [[BreakoutGame alloc] init];
     self.breakoutGame.delegate = self;
+    self.breakoutGame.playersManager = self.playersManager;
     self.allBlockViewsArray = [[NSMutableArray alloc] init];
     self.destroyedBlockViewsArray = [[NSMutableArray alloc] init];
 
@@ -87,6 +89,11 @@
     [self.dynamicAnimator updateItemUsingCurrentState:self.paddleView];
 }
 
+- (IBAction)onExitGameActionPerformed:(id)sender
+{
+    [self removeBehaviorsFromDynamicAnimator];
+    [self displayAlertViewWithTitle:kGameStringExitPrompt andMessage:@"Are you sure you want to end the game?" withNoButton:YES];
+}
 
 
 #pragma mark - UICollisionBehaviorDelegate Methods
@@ -202,6 +209,8 @@
 {
     NSLog(@"in breakoutGame:playerName:hasTurnsLeft:withClearBoardStatus:andCurrentScore turnsLeft = %d",turnsLeft);
     self.turnLabel.text = [NSString stringWithFormat:@"%d",turnsLeft];
+    self.playerNameLabel.text = player;
+    
     if (turnsLeft <= 0)
     {
         [self removeBehaviorsFromDynamicAnimator];
@@ -220,26 +229,48 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0)
+    switch (buttonIndex)
     {
-        [self resetPaddleToStartPosition];
+        case 0: // Yes to alertView prompt
+            [self resetPaddleToStartPosition];
 
-        if ([alertView.title isEqualToString:kGameStringGameOver] || [alertView.title isEqualToString:kGameStringClearedBoard])
-        {
-            [self removeAllBlockViewsFromView];
-            [self.breakoutGame restartGame];
-            [self addBehaviorsToDynamicAnimator];
-        }
-        else if ([alertView.title isEqualToString:kGameStringTurnOver])
-        {
+            if ([alertView.title isEqualToString:kGameStringGameOver] || [alertView.title isEqualToString:kGameStringClearedBoard])
+            {
+                [self removeAllBlockViewsFromView];
+                [self.breakoutGame restartGame];
+                [self addBehaviorsToDynamicAnimator];
+            }
+            else if ([alertView.title isEqualToString:kGameStringTurnOver])
+            {
+                [self addBehaviorsToDynamicAnimator];
+            }
+            else if ([alertView.title isEqualToString:kGameStringExitPrompt])
+            {
+                [self removeBehaviorsFromDynamicAnimator];
+                [self.breakoutGame stopGame];
+                [self performSegueWithIdentifier:@"GameUnwindSegue" sender:nil];
+            }
 
-            [self addBehaviorsToDynamicAnimator];
-        }
-    }
-    else
-    {
-        // segue to a game start page
-    }
+            break;
+
+        case 1:  // No to alertView prompt
+            if ([alertView.title isEqualToString:kGameStringGameOver] ||
+                [alertView.title isEqualToString:kGameStringClearedBoard] ||
+                [alertView.title isEqualToString:kGameStringTurnOver])
+            {
+                [self removeBehaviorsFromDynamicAnimator];
+                [self.breakoutGame stopGame];
+                [self performSegueWithIdentifier:@"GameUnwindSegue" sender:nil];
+            }
+            else if ([alertView.title isEqualToString:kGameStringExitPrompt])
+            {
+                [self addBehaviorsToDynamicAnimator];
+            }
+            break;
+
+        default:
+            break;
+    } // End of switch
 }
 
 
@@ -367,6 +398,18 @@
         [alertView show];
     }
 }
+
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"GameUnwindSegue"])
+    {
+        // put some code in here to pass player data into the player model
+    }
+}
+
 
 
 #pragma mark - Dynamic Animator/Behavior Related Methods
