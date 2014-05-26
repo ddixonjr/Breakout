@@ -10,4 +10,6 @@
 
 @interface PlayerDetailViewController : UIViewController
 
+@property (strong, nonatomic) NSString *playerName;
+
 @end

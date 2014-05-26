@@ -19,5 +19,6 @@
 #define kDefaultMaxBlockGridRows  5
 #define kDefaultMaxBlockGridBlocksPerRow  10
 #define kDefaultMaxBlockHitsToDestroy  2
+#define kEmptyNSString @""
 
 #endif

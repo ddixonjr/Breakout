@@ -9,6 +9,7 @@
 #import "PlayerDetailViewController.h"
 
 @interface PlayerDetailViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *playerNameTextField;
 
 @end
 
@@ -17,7 +18,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.playerNameTextField.text = self.playerName;
+
 }
+
+- (IBAction)onDoneButtonPressed:(id)sender
+{
+
+}
+
+
+- (IBAction)onBackgroundTapped:(id)sender
+{
+    [self.playerNameTextField resignFirstResponder];
+}
+
 
 @end
