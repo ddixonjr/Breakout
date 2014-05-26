@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		957F8F591932CD2D005F4E62 /* PlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 957F8F581932CD2D005F4E62 /* PlayersViewController.m */; };
+		957F8F5C1932CE21005F4E62 /* PlayerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 957F8F5B1932CE21005F4E62 /* PlayerDetailViewController.m */; };
 		95FE5435192FF8190034358C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95FE5434192FF8190034358C /* Foundation.framework */; };
 		95FE5437192FF8190034358C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95FE5436192FF8190034358C /* CoreGraphics.framework */; };
 		95FE5439192FF8190034358C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95FE5438192FF8190034358C /* UIKit.framework */; };
@@ -43,6 +45,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		957F8F571932CD2D005F4E62 /* PlayersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayersViewController.h; sourceTree = "<group>"; };
+		957F8F581932CD2D005F4E62 /* PlayersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayersViewController.m; sourceTree = "<group>"; };
+		957F8F5A1932CE21005F4E62 /* PlayerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerDetailViewController.h; sourceTree = "<group>"; };
+		957F8F5B1932CE21005F4E62 /* PlayerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerDetailViewController.m; sourceTree = "<group>"; };
 		95FE5431192FF8180034358C /* Breakout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breakout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95FE5434192FF8190034358C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		95FE5436192FF8190034358C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -200,6 +206,10 @@
 			children = (
 				95FE5449192FF8190034358C /* BreakoutGameViewController.h */,
 				95FE544A192FF8190034358C /* BreakoutGameViewController.m */,
+				957F8F571932CD2D005F4E62 /* PlayersViewController.h */,
+				957F8F581932CD2D005F4E62 /* PlayersViewController.m */,
+				957F8F5A1932CE21005F4E62 /* PlayerDetailViewController.h */,
+				957F8F5B1932CE21005F4E62 /* PlayerDetailViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -335,8 +345,10 @@
 				95FE548519303D120034358C /* Player.m in Sources */,
 				95FE548219303B6C0034358C /* BreakoutGame.m in Sources */,
 				95FE546E192FFCA70034358C /* BallView.m in Sources */,
+				957F8F591932CD2D005F4E62 /* PlayersViewController.m in Sources */,
 				95FE5445192FF8190034358C /* AppDelegate.m in Sources */,
 				95FE5441192FF8190034358C /* main.m in Sources */,
+				957F8F5C1932CE21005F4E62 /* PlayerDetailViewController.m in Sources */,
 				95FE548B19303E920034358C /* Block.m in Sources */,
 				95FE5479193005450034358C /* RowView.m in Sources */,
 				95FE548819303E550034358C /* BlockGrid.m in Sources */,

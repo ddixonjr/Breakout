@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="VG2-Rb-tBJ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="93t-OO-eYP">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="VG2-Rb-tBJ" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="a5p-tS-bmF">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="76F-9s-TB4" kind="relationship" relationship="rootViewController" id="1hf-KR-QNp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ogc-v2-FvS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="502" y="-711"/>
+        </scene>
         <!--Breakout Game View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
@@ -15,7 +30,7 @@
                             <view contentMode="scaleToFill" id="Zoe-MJ-W45" customClass="PaddleView">
                                 <rect key="frame" x="234" y="411" width="66" height="15"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="0.3081378180431531" green="0.55217025651726048" blue="0.62755102040816324" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.3509804028944471" green="0.6369287728245312" blue="0.72425063775510212" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="JUZ-Lv-2Ds" appends="YES" id="dDz-kD-rj5"/>
@@ -79,6 +94,13 @@
                                 <color key="textColor" red="0.91836734689999999" green="0.91836734689999999" blue="0.91836734689999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.24999999999999967" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mUt-WJ-NCV">
+                                <rect key="frame" x="20" y="214" width="280" height="51"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <color key="textColor" red="0.91836734689999999" green="0.91836734689999999" blue="0.91836734689999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.14810181538025569" green="0.37946087277176971" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -101,7 +123,55 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="445" y="-78"/>
+            <point key="canvasLocation" x="1489" y="-356"/>
+        </scene>
+        <!--Players View Controller - Players-->
+        <scene sceneID="7KF-ve-TEe">
+            <objects>
+                <viewController id="76F-9s-TB4" customClass="PlayersViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="W65-4o-bmR">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Dr5-eH-rgX">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="76F-9s-TB4" id="EnR-L2-DkH"/>
+                                    <outlet property="delegate" destination="76F-9s-TB4" id="6Kn-TZ-Seh"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Players" id="mYP-6h-Ofv">
+                        <barButtonItem key="leftBarButtonItem" title="Play" id="ggI-Hn-JGn"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="RdD-7e-7KO"/>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="modal" identifier="PlayBreakoutSegue" id="Qbv-o2-vo1"/>
+                        <segue destination="2M0-Xb-XoX" kind="push" identifier="PlayerDetailSegue" id="Xug-x8-9Ws"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GnA-eR-dix" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="957" y="-711"/>
+        </scene>
+        <!--View Controller - Player Detail-->
+        <scene sceneID="TFk-B2-Bvj">
+            <objects>
+                <viewController id="2M0-Xb-XoX" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ntj-0Q-gQl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Player Detail" id="Cu3-FQ-78L"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jog-tX-u3h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1497" y="-1039"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
