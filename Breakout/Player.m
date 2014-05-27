@@ -49,6 +49,7 @@
 - (void)resetForStartOfPlay
 {
     self.score = 0;
+    self.round = 1;
     self.turnsLeft = kDefaultNumberOfTurns;
 }
 

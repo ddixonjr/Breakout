@@ -47,7 +47,7 @@
 - (void)loadPlayers
 {
     //  Temp code to load some placeholder players into the array
-    Player *testPlayer = [[Player alloc] initWithName:@"Test Player" andTurnsAtStart:kDefaultNumberOfTurns];
+    Player *testPlayer = [[Player alloc] initWithName:@"Dennis" andTurnsAtStart:kDefaultNumberOfTurns];
     [self.players addObject:testPlayer];
 }
 

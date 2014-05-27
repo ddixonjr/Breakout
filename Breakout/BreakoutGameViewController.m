@@ -73,7 +73,7 @@
 
     [self initRowViewArray];
     [self initializeBreakoutAnimation];
-    [self.breakoutGame startGame];
+    [self.breakoutGame startGame:kIsNewGame];
 }
 
 //-(void)viewDidAppear:(BOOL)animated
@@ -101,18 +101,17 @@
 - (void)collisionBehavior:(UICollisionBehavior *)behavior beganContactForItem:(id<UIDynamicItem>)item withBoundaryIdentifier:(id<NSCopying>)identifier atPoint:(CGPoint)p
 {
     NSString *boundaryIdString = (NSString *) identifier;
-//  NSLog(@"Ball hit boundary (%f,%f)",p.x,p.y);
 
     if ([boundaryIdString isEqualToString:kBottomBoundaryIdString])
     {
 //      NSLog(@"Ball hit bottom");
-        [self.breakoutGame turnEnded];
+        [self.breakoutGame turnEnded:[self.scoreLabel.text integerValue]];
         [self removeBehaviorsFromDynamicAnimator];
+        [self resetPaddleToStartPosition];
+
         if ([self.breakoutGame turnsLeftForCurrentPlayer] > 0)
         {
-            [self resetPaddleToStartPosition];
-            [self displayAlertViewWithTitle:kGameStringTurnOver andMessage:@"Start next turn?" withNoButton:YES];
-
+            [self displayAlertViewWithTitle:kGameStringTurnOver andMessage:@"Start next turn!" withNoButton:NO];
         }
     }
 }
@@ -134,7 +133,7 @@
             [self.destroyedBlockViewsArray addObject:blockViewHit];
             // 'Destroyed' BlockView is then removed in the method (removeDestroyedBlockViewsFromPlayView) that I set to be the UIView animation call back method for post animation actions
             NSLog(@"the block hit had a position of row %d : position %d and strength of %d", blockViewHit.blockDescriptor.blockRow, blockViewHit.blockDescriptor.blockPosition, blockViewHit.blockDescriptor.blockStrength);
-            [self updateScore];
+//            [self updateScore];
         }
     }
 }
@@ -207,21 +206,50 @@
 
 - (void)breakoutGame:(BreakoutGame *)breakoutGame playerName:(NSString *)player hasTurnsLeft:(NSInteger)turnsLeft withClearBoardStatus:(BOOL)isBoardCleared andCurrentScore:(NSInteger)score
 {
-    NSLog(@"in breakoutGame:playerName:hasTurnsLeft:withClearBoardStatus:andCurrentScore turnsLeft = %d",turnsLeft);
+//    NSLog(@"in breakoutGame:playerName:hasTurnsLeft:withClearBoardStatus:andCurrentScore turnsLeft = %d",turnsLeft);
     self.turnLabel.text = [NSString stringWithFormat:@"%d",turnsLeft];
     self.playerNameLabel.text = player;
-    
-    if (turnsLeft <= 0)
+    self.scoreLabel.text = [NSString stringWithFormat:@"%d",score];
+
+    if (isBoardCleared)
     {
         [self removeBehaviorsFromDynamicAnimator];
-        [self displayAlertViewWithTitle:kGameStringGameOver andMessage:@"Would you like to play again?" withNoButton:YES];
-    }
-    else if (isBoardCleared)
-    {
-        [self removeBehaviorsFromDynamicAnimator];
-        [self displayAlertViewWithTitle:kGameStringClearedBoard andMessage:@"Great Job!\nKeep Going?" withNoButton:YES];
+        [self displayAlertViewWithTitle:kGameStringClearedBoard andMessage:@"Great Job!\nKeep Going!" withNoButton:NO];
 
     }
+}
+
+-(void)breakoutGame:(BreakoutGame *)breakoutGame startNewPlayerNamed:(NSString *)player withTurnsLeft:(NSInteger)turnsLeft fromPreviousPlayer:(NSString *)previousPlayer 
+{
+    self.turnLabel.text = [NSString stringWithFormat:@"%d",turnsLeft];
+    self.playerNameLabel.text = player;
+    self.scoreLabel.text = @"0";
+
+    [self removeAllBlockViewsFromView];
+    [self.breakoutGame restartGame:kIsNotNewGame];
+    [self addBehaviorsToDynamicAnimator];
+}
+
+
+-(void)breakoutGame:(BreakoutGame *)breakoutGame gameOverWithWinner:(NSString *)player andScore:(NSInteger)winningScore;
+{
+    [self removeBehaviorsFromDynamicAnimator];
+    NSString *winnerString = [NSString stringWithFormat:@"%@ won with %d points!\nPlay Again?",player,winningScore];
+    [self displayAlertViewWithTitle:kGameStringGameOver andMessage:winnerString withNoButton:YES];
+}
+
+#pragma mark - UIView Animation Delegate Methods
+//  replaced "- (void)removeDestroyedBlockViewsFromPlayView" as a clean way to do something after the UIView animation completes
+- (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+    NSLog(@"in animationDidStop:finished:context:");
+    for (UIView *curBlockView in self.destroyedBlockViewsArray)
+    {
+        [curBlockView removeFromSuperview];
+        [self.collisionBehavior removeItem:curBlockView];
+        [self.dynamicAnimator updateItemUsingCurrentState:curBlockView];
+    }
+    [self.destroyedBlockViewsArray removeAllObjects];
 }
 
 
@@ -234,10 +262,16 @@
         case 0: // Yes to alertView prompt
             [self resetPaddleToStartPosition];
 
-            if ([alertView.title isEqualToString:kGameStringGameOver] || [alertView.title isEqualToString:kGameStringClearedBoard])
+            if ([alertView.title isEqualToString:kGameStringClearedBoard])
             {
                 [self removeAllBlockViewsFromView];
-                [self.breakoutGame restartGame];
+                [self.breakoutGame restartGame:kIsNotNewGame];
+                [self addBehaviorsToDynamicAnimator];
+            }
+            else if ([alertView.title isEqualToString:kGameStringGameOver])
+            {
+                [self removeAllBlockViewsFromView];
+                [self.breakoutGame restartGame:kIsNewGame];
                 [self addBehaviorsToDynamicAnimator];
             }
             else if ([alertView.title isEqualToString:kGameStringTurnOver])
@@ -321,20 +355,6 @@
     [UIView setAnimationDuration:0.3];
     [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:blockView cache:NO];
     [UIView commitAnimations];
-}
-
-
-//  replaced "- (void)removeDestroyedBlockViewsFromPlayView" as a clean way to do something after the UIView animation completes
-- (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
-{
-    NSLog(@"in animationDidStop:finished:context:");
-    for (UIView *curBlockView in self.destroyedBlockViewsArray)
-    {
-        [curBlockView removeFromSuperview];
-        [self.collisionBehavior removeItem:curBlockView];
-        [self.dynamicAnimator updateItemUsingCurrentState:curBlockView];
-    }
-    [self.destroyedBlockViewsArray removeAllObjects];
 }
 
 
@@ -435,7 +455,7 @@
 
 - (void)addBehaviorsToDynamicAnimator
 {
-    [NSThread sleepForTimeInterval:2.0];
+//    [NSThread sleepForTimeInterval:2.0];
     self.pushBehavior.pushDirection = CGVectorMake(0.5,1.0);
     self.pushBehavior.magnitude = 0.02;
     self.pushBehavior.active = YES;

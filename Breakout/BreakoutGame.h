@@ -14,9 +14,12 @@
 
 @protocol BreakoutGameDelegate <NSObject> // Without explicit conformance to <NSObject> respondsToSelector: on the delegate will not compile
 
--(void)breakoutGame:(BreakoutGame *)breakoutGame blockGridHasNumberOfRows:(NSInteger)rows;
--(void)breakoutGame:(BreakoutGame *)breakoutGame blockGridRow:(NSInteger)row hasBlocksWithBlockDescriptors:(NSArray *)blockRowDescriptorArray;
--(void)breakoutGame:(BreakoutGame *)breakoutGame playerName:(NSString *)player hasTurnsLeft:(NSInteger)turnsLeft withClearBoardStatus:(BOOL)isBoardCleared andCurrentScore:(NSInteger)score;
+- (void)breakoutGame:(BreakoutGame *)breakoutGame blockGridHasNumberOfRows:(NSInteger)rows;
+- (void)breakoutGame:(BreakoutGame *)breakoutGame blockGridRow:(NSInteger)row hasBlocksWithBlockDescriptors:(NSArray *)blockRowDescriptorArray;
+- (void)breakoutGame:(BreakoutGame *)breakoutGame playerName:(NSString *)player hasTurnsLeft:(NSInteger)turnsLeft withClearBoardStatus:(BOOL)isBoardCleared andCurrentScore:(NSInteger)score;
+- (void)breakoutGame:(BreakoutGame *)breakoutGame startNewPlayerNamed:(NSString *)player withTurnsLeft:(NSInteger)turnsLeft fromPreviousPlayer:(NSString *)previousPlayer;
+-(void)breakoutGame:(BreakoutGame *)breakoutGame gameOverWithWinner:(NSString *)player andScore:(NSInteger)winningScore;
+
 
 @end
 
@@ -26,11 +29,11 @@
 @property (strong, nonatomic) id<BreakoutGameDelegate> delegate;
 @property (strong, nonatomic) PlayersManager *playersManager;
 
--(void)startGame;
--(void)stopGame;
--(void)restartGame;
--(void)turnEnded;
--(BOOL)destroyHitBlockWithBlockDescriptor:(BlockDescriptor *)BlockDescriptor;
--(NSInteger)turnsLeftForCurrentPlayer;
+- (void)startGame:(BOOL)isNewGame;
+- (void)stopGame;
+- (void)restartGame:(BOOL)isNewGame;
+- (void)turnEnded:(NSInteger)updatedScore;
+- (BOOL)destroyHitBlockWithBlockDescriptor:(BlockDescriptor *)BlockDescriptor;
+- (NSInteger)turnsLeftForCurrentPlayer;
 
 @end

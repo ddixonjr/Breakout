@@ -28,7 +28,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="Zoe-MJ-W45" customClass="PaddleView">
-                                <rect key="frame" x="234" y="411" width="66" height="15"/>
+                                <rect key="frame" x="234" y="413" width="66" height="15"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.3509804028944471" green="0.6369287728245312" blue="0.72425063775510212" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
@@ -115,9 +115,6 @@
                         </subviews>
                         <color key="backgroundColor" red="0.14810181538025569" green="0.37946087277176971" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="lYv-ne-Fe0" appends="YES" id="auc-W8-xI8"/>
-                        </connections>
                     </view>
                     <connections>
                         <outlet property="ballView" destination="nHH-RN-o9p" id="lz4-Z9-yAE"/>
@@ -140,15 +137,10 @@
                         <action selector="onDragPaddle:" destination="vXZ-lx-hvc" id="uAK-xy-ppd"/>
                     </connections>
                 </panGestureRecognizer>
-                <swipeGestureRecognizer direction="right" id="lYv-ne-Fe0">
-                    <connections>
-                        <action selector="onExitGameActionPerformed:" destination="vXZ-lx-hvc" id="A9X-Gk-2pa"/>
-                    </connections>
-                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1489" y="-356"/>
         </scene>
-        <!--Players View Controller - Players-->
+        <!--Players View Controller - Breakout Players-->
         <scene sceneID="7KF-ve-TEe">
             <objects>
                 <viewController id="76F-9s-TB4" customClass="PlayersViewController" sceneMemberID="viewController">
@@ -181,7 +173,7 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Players" id="mYP-6h-Ofv">
+                    <navigationItem key="navigationItem" title="Breakout Players" id="mYP-6h-Ofv">
                         <barButtonItem key="leftBarButtonItem" title="Play" id="ggI-Hn-JGn">
                             <connections>
                                 <action selector="onPlayButtonPressed:" destination="76F-9s-TB4" id="Cyh-L0-2It"/>

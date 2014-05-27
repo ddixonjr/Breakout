@@ -27,6 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     self.playersManager = [[PlayersManager alloc] init];
 }
 

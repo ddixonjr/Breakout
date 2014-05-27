@@ -23,5 +23,8 @@
 #define kEmptyNSString @""
 #define kPlayerViewModeEdit 0
 #define kPlayerViewModeAdd 1
+#define kIsNewGame YES
+#define kIsNotNewGame NO
+
 
 #endif

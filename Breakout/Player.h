@@ -13,6 +13,7 @@
 @property (strong, nonatomic) NSString *name;
 @property (assign, nonatomic) NSInteger turnsLeft;
 @property (assign, nonatomic) NSInteger score;
+@property (assign, nonatomic) NSInteger round;
 @property (assign, readonly, nonatomic) BOOL turnsGone;
 
 - (id)initWithName:(NSString *)name andTurnsAtStart:(NSInteger)turnsAtStart;
