@@ -132,7 +132,7 @@
             [self animateBlockBeforeRemoval:blockViewHit];
             [self.destroyedBlockViewsArray addObject:blockViewHit];
             // 'Destroyed' BlockView is then removed in the method (removeDestroyedBlockViewsFromPlayView) that I set to be the UIView animation call back method for post animation actions
-            NSLog(@"the block hit had a position of row %d : position %d and strength of %d", blockViewHit.blockDescriptor.blockRow, blockViewHit.blockDescriptor.blockPosition, blockViewHit.blockDescriptor.blockStrength);
+//            NSLog(@"the block hit had a position of row %ld : position %ld and strength of %ld", (long) blockViewHit.blockDescriptor.blockRow, (long) blockViewHit.blockDescriptor.blockPosition, (long)blockViewHit.blockDescriptor.blockStrength);
 //            [self updateScore];
         }
     }
@@ -143,14 +143,14 @@
 
 - (void)breakoutGame:(BreakoutGame *)breakoutGame blockGridHasNumberOfRows:(NSInteger)rows
 {
-    NSLog(@"in breakoutGame:blockGridHasNumberOfRows");
+//    NSLog(@"in breakoutGame:blockGridHasNumberOfRows");
     // I'll use this later to vary the number of block rows based on the game object!
 }
 
 
 - (void)breakoutGame:(BreakoutGame *)breakoutGame blockGridRow:(NSInteger)row hasBlocksWithBlockDescriptors:(NSArray *)blockRowDescriptorArray
 {
-    NSLog(@"in breakoutGame:blockGridRow:hasBlockWithDescriptors - curBlkDescriptorArray has %d elements", blockRowDescriptorArray.count);
+//    NSLog(@"in breakoutGame:blockGridRow:hasBlockWithDescriptors - curBlkDescriptorArray has %ld elements", (long)blockRowDescriptorArray.count);
     UIView *curRowView = [self.rowViewArray objectAtIndex:row];
     CGFloat curRowViewWidth = curRowView.frame.size.width;
     CGFloat adjustedRowViewWidthForBlockSpacing = curRowViewWidth - ((CGFloat)((kGamePieceBlockInterblockSpacing * blockRowDescriptorArray.count) + kGamePieceBlockInterblockSpacing));
@@ -207,9 +207,9 @@
 - (void)breakoutGame:(BreakoutGame *)breakoutGame playerName:(NSString *)player hasTurnsLeft:(NSInteger)turnsLeft withClearBoardStatus:(BOOL)isBoardCleared andCurrentScore:(NSInteger)score
 {
 //    NSLog(@"in breakoutGame:playerName:hasTurnsLeft:withClearBoardStatus:andCurrentScore turnsLeft = %d",turnsLeft);
-    self.turnLabel.text = [NSString stringWithFormat:@"%d",turnsLeft];
+    self.turnLabel.text = [NSString stringWithFormat:@"%ld",(long)turnsLeft];
     self.playerNameLabel.text = player;
-    self.scoreLabel.text = [NSString stringWithFormat:@"%d",score];
+    self.scoreLabel.text = [NSString stringWithFormat:@"%ld",(long)score];
 
     if (isBoardCleared)
     {
@@ -221,7 +221,7 @@
 
 -(void)breakoutGame:(BreakoutGame *)breakoutGame startNewPlayerNamed:(NSString *)player withTurnsLeft:(NSInteger)turnsLeft fromPreviousPlayer:(NSString *)previousPlayer 
 {
-    self.turnLabel.text = [NSString stringWithFormat:@"%d",turnsLeft];
+    self.turnLabel.text = [NSString stringWithFormat:@"%ld",(long)turnsLeft];
     self.playerNameLabel.text = player;
     self.scoreLabel.text = @"0";
 
@@ -234,7 +234,7 @@
 -(void)breakoutGame:(BreakoutGame *)breakoutGame gameOverWithWinner:(NSString *)player andScore:(NSInteger)winningScore;
 {
     [self removeBehaviorsFromDynamicAnimator];
-    NSString *winnerString = [NSString stringWithFormat:@"%@ won with %d points!\nPlay Again?",player,winningScore];
+    NSString *winnerString = [NSString stringWithFormat:@"%@ won with %ld points!\nPlay Again?",player,(long)winningScore];
     [self displayAlertViewWithTitle:kGameStringGameOver andMessage:winnerString withNoButton:YES];
 }
 
@@ -242,7 +242,7 @@
 //  replaced "- (void)removeDestroyedBlockViewsFromPlayView" as a clean way to do something after the UIView animation completes
 - (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
 {
-    NSLog(@"in animationDidStop:finished:context:");
+//    NSLog(@"in animationDidStop:finished:context:");
     for (UIView *curBlockView in self.destroyedBlockViewsArray)
     {
         [curBlockView removeFromSuperview];
@@ -347,7 +347,7 @@
 
 - (void)animateBlockBeforeRemoval:(UIView *)blockView;
 {
-    NSLog(@"in animateBlockBeforeRemoval - backgroundColor on entry %@",blockView.backgroundColor);
+//    NSLog(@"in animateBlockBeforeRemoval - backgroundColor on entry %@",blockView.backgroundColor);
     [UIView beginAnimations:@"BlockView Removal Animations" context:nil];
     [UIView setAnimationDelegate:self];
     [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];

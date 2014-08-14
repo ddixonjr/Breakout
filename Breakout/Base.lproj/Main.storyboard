@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="VG2-Rb-tBJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="VG2-Rb-tBJ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -24,12 +24,12 @@
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="BreakoutGameViewController" sceneMemberID="viewController">
                     <view key="view" tag="3" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="Zoe-MJ-W45" customClass="PaddleView">
-                                <rect key="frame" x="234" y="413" width="66" height="15"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <rect key="frame" x="213" y="476" width="70" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.3509804028944471" green="0.6369287728245312" blue="0.72425063775510212" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
                                 <connections>
@@ -37,8 +37,8 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" id="nHH-RN-o9p" customClass="BallView">
-                                <rect key="frame" x="135" y="279" width="10" height="10"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <rect key="frame" x="135" y="331" width="10" height="10"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.30813781800000001" green="0.55217025649999996" blue="0.62755102039999999" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" id="3wr-A7-0pm" customClass="RowView">
@@ -138,18 +138,18 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1489" y="-356"/>
+            <point key="canvasLocation" x="1497" y="-356"/>
         </scene>
         <!--Players View Controller - Breakout Players-->
         <scene sceneID="7KF-ve-TEe">
             <objects>
                 <viewController id="76F-9s-TB4" customClass="PlayersViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="W65-4o-bmR">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Dr5-eH-rgX">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -199,7 +199,7 @@
             <objects>
                 <viewController id="2M0-Xb-XoX" customClass="PlayerDetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ntj-0Q-gQl" customClass="UIControl">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter New Player Name" minimumFontSize="17" id="OyP-p1-SDO">
@@ -215,7 +215,8 @@
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Player Detail" id="Cu3-FQ-78L">
-                        <barButtonItem key="rightBarButtonItem" title="Edit" id="oaH-dw-pPv">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="vnY-Pm-I8a"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="oaH-dw-pPv">
                             <connections>
                                 <action selector="onEditButtonPressed:" destination="2M0-Xb-XoX" id="qDH-33-wFq"/>
                             </connections>
@@ -234,6 +235,6 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
 </document>

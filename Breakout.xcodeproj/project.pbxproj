@@ -193,6 +193,7 @@
 			children = (
 				95FE5446192FF8190034358C /* Main.storyboard */,
 				95FE5469192FFC5E0034358C /* PaddleView.h */,
+				95855DE81933726C0040C96F /* PlayersManager.m */,
 				95FE546A192FFC5E0034358C /* PaddleView.m */,
 				95FE546C192FFCA70034358C /* BallView.h */,
 				95FE546D192FFCA70034358C /* BallView.m */,
@@ -229,7 +230,6 @@
 				95FE547D193024AF0034358C /* BlockDescriptor.h */,
 				95FE547E193024AF0034358C /* BlockDescriptor.m */,
 				95855DE71933726C0040C96F /* PlayersManager.h */,
-				95855DE81933726C0040C96F /* PlayersManager.m */,
 				95FE548319303D120034358C /* Player.h */,
 				95FE548419303D120034358C /* Player.m */,
 			);
@@ -293,6 +293,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Appivot LLC";
 				TargetAttributes = {
+					95FE5430192FF8180034358C = {
+						DevelopmentTeam = WLB55W34QV;
+					};
 					95FE5451192FF8190034358C = {
 						TestTargetID = 95FE5430192FF8180034358C;
 					};
@@ -423,7 +426,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Dennis Dixon (48PL5D96SP)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dennis Dixon (48PL5D96SP)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -441,6 +445,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "27B735A9-017B-4F75-8F88-537F7F41B2FA";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -461,7 +466,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Dennis Dixon (48PL5D96SP)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dennis Dixon (48PL5D96SP)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -472,6 +478,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PROVISIONING_PROFILE = "27B735A9-017B-4F75-8F88-537F7F41B2FA";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -482,10 +489,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Breakout/Breakout-Prefix.pch";
 				INFOPLIST_FILE = "Breakout/Breakout-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -495,10 +505,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Breakout/Breakout-Prefix.pch";
 				INFOPLIST_FILE = "Breakout/Breakout-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

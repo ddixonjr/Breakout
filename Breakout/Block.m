@@ -29,13 +29,13 @@
     // >= just in case something in the game logic doesn't remove the block
     // when the isDestroy flag is originally set, keep setting isDestroyed to YES.  :)
     self.hasBeenDestroyed = (self.hitCount >= self.hitsToDestroy) ? YES : NO;
-    NSLog(@"\nin Block - logHit...hitCount %d, hitsToDestroy %d, isDestroyed %d",self.hitCount,self.hitsToDestroy,self.hasBeenDestroyed);
+//    NSLog(@"\nin Block - logHit...hitCount %ld, hitsToDestroy %ld, isDestroyed %d",(long)self.hitCount,self.hitsToDestroy,self.hasBeenDestroyed);
 
 }
 
 -(NSString *)description
 {
-    return [NSString stringWithFormat:@"This block has hitCount: %d, pointValue: %d, and hasBeenDestroyed = %d", self.hitCount,self.pointValue,self.hasBeenDestroyed];
+    return [NSString stringWithFormat:@"This block has hitCount: %ld, pointValue: %ld, and hasBeenDestroyed = %d", (long)self.hitCount,self.pointValue,self.hasBeenDestroyed];
 }
 
 @end

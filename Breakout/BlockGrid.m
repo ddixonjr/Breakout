@@ -31,14 +31,14 @@
     self = [super init];
     if (self)
     {
-        [self buildRandomBlockGridWithDifficulty:difficulty];
+        [self buildRandomBlockGridWithDifficulty:(int)difficulty];
     }
     return self;
 }
 
 
 // Builds the structure comprising the BlockGrid object--an NSArray pointing to 'row' NSArrays with Block objects
-- (void)buildRandomBlockGridWithDifficulty:(NSInteger)difficulty
+- (void)buildRandomBlockGridWithDifficulty:(int)difficulty
 {
     self.totalBlocksInGrid = 0;
     self.totalBlocksDestroyed = 0;
@@ -78,7 +78,7 @@
     NSMutableArray *curBlockRowArray = [self.blockGridRowArray objectAtIndex:blockDescriptor.blockRow];
     Block *curBlockHit = [curBlockRowArray objectAtIndex:blockDescriptor.blockPosition];
     [curBlockHit logHit];
-    NSLog(@"block at (%d,%d) hit and hasBeenDestroyed = %d",blockDescriptor.blockRow,blockDescriptor.blockPosition,curBlockHit.hasBeenDestroyed);
+//    NSLog(@"block at (%ld,%ld) hit and hasBeenDestroyed = %ld",(long)blockDescriptor.blockRow,(long)blockDescriptor.blockPosition,(long)curBlockHit.hasBeenDestroyed);
 
     if (curBlockHit.hasBeenDestroyed)
     {
