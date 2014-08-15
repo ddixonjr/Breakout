@@ -102,7 +102,7 @@
 {
     NSString *boundaryIdString = (NSString *) identifier;
 
-    if ([boundaryIdString isEqualToString:kBottomBoundaryIdString])
+    if ([boundaryIdString isEqualToString:kBottomBoundaryIdString] && [item isEqual:self.ballView])
     {
 //      NSLog(@"Ball hit bottom");
         [self.breakoutGame turnEnded:[self.scoreLabel.text integerValue]];
@@ -462,7 +462,10 @@
 
     self.collisionBehavior.translatesReferenceBoundsIntoBoundary = YES;
     self.collisionBehavior.collisionDelegate = self;
-    [self.collisionBehavior addBoundaryWithIdentifier:kBottomBoundaryIdString fromPoint:CGPointMake(0.0,480.0) toPoint:CGPointMake(320.0,480.0)];
+    CGRect mainScreenRect = [[UIScreen mainScreen] bounds];
+    CGFloat bottomBoundaryYCoord = mainScreenRect.size.height;
+
+    [self.collisionBehavior addBoundaryWithIdentifier:kBottomBoundaryIdString fromPoint:CGPointMake(0.0,bottomBoundaryYCoord) toPoint:CGPointMake(320.0,bottomBoundaryYCoord)];
     [self.dynamicAnimator addBehavior:self.collisionBehavior];
 
     self.paddleItemBehavior.density = 1000;

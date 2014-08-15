@@ -37,7 +37,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" id="nHH-RN-o9p" customClass="BallView">
-                                <rect key="frame" x="135" y="331" width="10" height="10"/>
+                                <rect key="frame" x="155" y="279" width="10" height="10"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.30813781800000001" green="0.55217025649999996" blue="0.62755102039999999" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -96,7 +96,7 @@
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.24999999999999967" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mUt-WJ-NCV">
                                 <rect key="frame" x="20" y="214" width="280" height="51"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <color key="textColor" red="0.91836734689999999" green="0.91836734689999999" blue="0.91836734689999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
