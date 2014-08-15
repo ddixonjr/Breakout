@@ -12,7 +12,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navBarBackground2.png"] forBarMetrics:UIBarMetricsDefault];
+
+    NSDictionary *titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
+    [[UINavigationBar appearance] setTitleTextAttributes:titleTextAttributes];
+
     return YES;
 }
 							

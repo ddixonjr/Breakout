@@ -140,21 +140,21 @@
             </objects>
             <point key="canvasLocation" x="1497" y="-356"/>
         </scene>
-        <!--Players View Controller - Breakout Players-->
+        <!--Players View Controller-->
         <scene sceneID="7KF-ve-TEe">
             <objects>
-                <viewController id="76F-9s-TB4" customClass="PlayersViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="76F-9s-TB4" customClass="PlayersViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="W65-4o-bmR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Dr5-eH-rgX">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="116" width="320" height="452"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlayerCell" id="vzL-PH-ZuA">
-                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vzL-PH-ZuA" id="dhX-UV-Hrc">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -170,18 +170,33 @@
                                     <outlet property="delegate" destination="76F-9s-TB4" id="6Kn-TZ-Seh"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" id="Qze-Ld-dSf">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="118"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add/Edit Player Name" minimumFontSize="17" id="rvS-ec-9i2">
+                                        <rect key="frame" x="20" y="77" width="243" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LjD-ar-kPQ">
+                                        <rect key="frame" x="271" y="81" width="39" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Breakout Players" id="mYP-6h-Ofv">
-                        <barButtonItem key="leftBarButtonItem" title="Play" id="ggI-Hn-JGn">
+                    <navigationItem key="navigationItem" id="mYP-6h-Ofv">
+                        <barButtonItem key="rightBarButtonItem" title="Play" id="ggI-Hn-JGn">
                             <connections>
                                 <action selector="onPlayButtonPressed:" destination="76F-9s-TB4" id="Cyh-L0-2It"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="RdD-7e-7KO">
-                            <connections>
-                                <action selector="onAddButtonPressed:" destination="76F-9s-TB4" id="b9h-An-PL7"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

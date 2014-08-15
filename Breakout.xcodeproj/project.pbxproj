@@ -193,7 +193,6 @@
 			children = (
 				95FE5446192FF8190034358C /* Main.storyboard */,
 				95FE5469192FFC5E0034358C /* PaddleView.h */,
-				95855DE81933726C0040C96F /* PlayersManager.m */,
 				95FE546A192FFC5E0034358C /* PaddleView.m */,
 				95FE546C192FFCA70034358C /* BallView.h */,
 				95FE546D192FFCA70034358C /* BallView.m */,
@@ -230,6 +229,7 @@
 				95FE547D193024AF0034358C /* BlockDescriptor.h */,
 				95FE547E193024AF0034358C /* BlockDescriptor.m */,
 				95855DE71933726C0040C96F /* PlayersManager.h */,
+				95855DE81933726C0040C96F /* PlayersManager.m */,
 				95FE548319303D120034358C /* Player.h */,
 				95FE548419303D120034358C /* Player.m */,
 			);

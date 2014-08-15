@@ -29,6 +29,7 @@
     [super viewDidLoad];
 
     self.playersManager = [[PlayersManager alloc] init];
+    self.navigationController.navigationBar.topItem.title = @"Breakout Players";
 }
 
 

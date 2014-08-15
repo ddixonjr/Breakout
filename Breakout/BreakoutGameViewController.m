@@ -455,7 +455,6 @@
 
 - (void)addBehaviorsToDynamicAnimator
 {
-//    [NSThread sleepForTimeInterval:2.0];
     self.pushBehavior.pushDirection = CGVectorMake(0.5,1.0);
     self.pushBehavior.magnitude = 0.02;
     self.pushBehavior.active = YES;
