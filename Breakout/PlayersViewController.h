@@ -10,6 +10,5 @@
 
 @interface PlayersViewController : UIViewController
 
-@property (strong, nonatomic) NSMutableArray *players;
 
 @end

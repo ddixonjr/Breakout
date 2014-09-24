@@ -35,7 +35,7 @@
 
 -(NSString *)description
 {
-    return [NSString stringWithFormat:@"This block has hitCount: %ld, pointValue: %ld, and hasBeenDestroyed = %d", (long)self.hitCount,self.pointValue,self.hasBeenDestroyed];
+    return [NSString stringWithFormat:@"This block has hitCount: %ld, pointValue: %ld, and hasBeenDestroyed = %ld", (long)self.hitCount,(long)self.pointValue,(long)self.hasBeenDestroyed];
 }
 
 @end

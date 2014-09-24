@@ -13,5 +13,6 @@
 
 - (NSMutableArray *)allPlayers;
 - (void)addPlayer:(Player *)playerName;
+- (void)removePlayer:(Player *)player;
 
 @end

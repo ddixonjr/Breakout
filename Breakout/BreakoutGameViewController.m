@@ -76,11 +76,6 @@
     [self.breakoutGame startGame:kIsNewGame];
 }
 
-//-(void)viewDidAppear:(BOOL)animated
-//{
-//    [self unhideBlockViewsInSuperview:YES];
-//}
-
 #pragma mark - IBAction Methods
 
 - (IBAction)onDragPaddle:(UIPanGestureRecognizer *)panGestureRecognizer
@@ -131,9 +126,6 @@
         {
             [self animateBlockBeforeRemoval:blockViewHit];
             [self.destroyedBlockViewsArray addObject:blockViewHit];
-            // 'Destroyed' BlockView is then removed in the method (removeDestroyedBlockViewsFromPlayView) that I set to be the UIView animation call back method for post animation actions
-//            NSLog(@"the block hit had a position of row %ld : position %ld and strength of %ld", (long) blockViewHit.blockDescriptor.blockRow, (long) blockViewHit.blockDescriptor.blockPosition, (long)blockViewHit.blockDescriptor.blockStrength);
-//            [self updateScore];
         }
     }
 }
@@ -144,7 +136,7 @@
 - (void)breakoutGame:(BreakoutGame *)breakoutGame blockGridHasNumberOfRows:(NSInteger)rows
 {
 //    NSLog(@"in breakoutGame:blockGridHasNumberOfRows");
-    // I'll use this later to vary the number of block rows based on the game object!
+//    I'll use this later to vary the number of block rows based on the game object!
 }
 
 
@@ -239,7 +231,7 @@
 }
 
 #pragma mark - UIView Animation Delegate Methods
-//  replaced "- (void)removeDestroyedBlockViewsFromPlayView" as a clean way to do something after the UIView animation completes
+
 - (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
 {
 //    NSLog(@"in animationDidStop:finished:context:");
@@ -310,17 +302,6 @@
 
 #pragma mark - Helper Methods
 
-//- (void)unhideBlockViewsInSuperview:(BOOL)animated
-//{
-//    for (UIView *curBlock in self.allBlockViewsArray)
-//    {
-//        [UIView animateWithDuration:0.2 animations:^{
-//            curBlock.alpha = 1.0;
-//        }];
-//    }
-//}
-
-
 - (void)removeAllBlockViewsFromView
 {
     for (UIView *curSubview in self.view.subviews)
@@ -360,24 +341,6 @@
 
 - (void)removeBlockViewFromPlayView:(UIView *)blockView
 {
-//    Perform some animation before block disappears
-//    Tries 1 and 2
-//    [self.collisionBehavior removeItem:blockView];
-//    [self.dynamicAnimator updateItemUsingCurrentState:blockView];
-//
-//    [UIView animateWithDuration:1.0 animations:^{
-//        blockView.backgroundColor = [UIColor whiteColor];
-//        blockView.alpha = 0.0;
-//        blockView.center = CGPointMake(-100.0,-100.0);
-//    }];
-//    [NSThread sleepForTimeInterval:0.5];
-
-//    Try 3 -- even
-//    UISnapBehavior *blockSnapToGoneBehavior = [[UISnapBehavior alloc] initWithItem:blockView snapToPoint:CGPointMake(-200.0, -200.0)];
-//    [self.dynamicAnimator addBehavior:blockSnapToGoneBehavior];
-
-    // since I never established a property for the object referenced by blockView,
-    // the superview has the only strong reference, so this alone should reduce retain count to zero
     [blockView removeFromSuperview];
     [self.collisionBehavior removeItem:blockView];
 }

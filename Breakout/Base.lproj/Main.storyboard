@@ -138,7 +138,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1497" y="-356"/>
+            <point key="canvasLocation" x="1431" y="-711"/>
         </scene>
         <!--Players View Controller-->
         <scene sceneID="7KF-ve-TEe">
@@ -153,16 +153,13 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlayerCell" id="vzL-PH-ZuA">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlayerCell" id="vzL-PH-ZuA">
                                         <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vzL-PH-ZuA" id="dhX-UV-Hrc">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="2M0-Xb-XoX" kind="push" identifier="PlayerDetailSegue" id="T6K-Jr-JEd"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -174,19 +171,22 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="118"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add/Edit Player Name" minimumFontSize="17" id="rvS-ec-9i2">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add Player Name" minimumFontSize="17" id="rvS-ec-9i2">
                                         <rect key="frame" x="20" y="77" width="243" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LjD-ar-kPQ">
-                                        <rect key="frame" x="271" y="81" width="39" height="21"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="XCH-Zc-Lpo">
+                                        <rect key="frame" x="270" y="77" width="46" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <state key="normal" title="Add">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onAddNewPlayerButtonPressed:" destination="76F-9s-TB4" eventType="touchUpInside" id="nLe-jF-4Zr"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -201,50 +201,15 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addButton" destination="XCH-Zc-Lpo" id="9d2-HZ-PBL"/>
+                        <outlet property="addPlayerTextField" destination="rvS-ec-9i2" id="Nnd-1Y-9qS"/>
                         <outlet property="tableView" destination="Dr5-eH-rgX" id="ASh-Ey-uVO"/>
                         <segue destination="vXZ-lx-hvc" kind="modal" identifier="PlayBreakoutSegue" id="Qbv-o2-vo1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GnA-eR-dix" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="957" y="-711"/>
-        </scene>
-        <!--Player Detail View Controller - Player Detail-->
-        <scene sceneID="TFk-B2-Bvj">
-            <objects>
-                <viewController id="2M0-Xb-XoX" customClass="PlayerDetailViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ntj-0Q-gQl" customClass="UIControl">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter New Player Name" minimumFontSize="17" id="OyP-p1-SDO">
-                                <rect key="frame" x="20" y="93" width="280" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <connections>
-                            <action selector="onBackgroundTapped:" destination="2M0-Xb-XoX" eventType="touchDown" id="bmG-xo-Ef5"/>
-                        </connections>
-                    </view>
-                    <navigationItem key="navigationItem" title="Player Detail" id="Cu3-FQ-78L">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="vnY-Pm-I8a"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="oaH-dw-pPv">
-                            <connections>
-                                <action selector="onEditButtonPressed:" destination="2M0-Xb-XoX" id="qDH-33-wFq"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="playerNameTextField" destination="OyP-p1-SDO" id="Q7c-AO-5Ww"/>
-                        <outlet property="updateButton" destination="oaH-dw-pPv" id="XI3-uy-zXK"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jog-tX-u3h" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1497" y="-1039"/>
+            <point key="canvasLocation" x="1023" y="-711"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

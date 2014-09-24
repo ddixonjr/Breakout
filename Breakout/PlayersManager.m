@@ -24,13 +24,12 @@
     if (self)
     {
         _players = [[NSMutableArray alloc] init];
-        [self loadPlayers];
     }
     return self;
 }
 
 
-- (NSMutableArray *)allPlayers;
+- (NSArray *)allPlayers;
 {
     return self.players;
 }
@@ -43,12 +42,17 @@
     [self.players addObject:newPlayer];
 }
 
-
-- (void)loadPlayers
+- (void)removePlayer:(Player *)player
 {
-    //  Temp code to load some placeholder players into the array
-    Player *defaultPlayer = [[Player alloc] initWithName:@"Player 1" andTurnsAtStart:kDefaultNumberOfTurns];
-    [self.players addObject:defaultPlayer];
+    for (int curIndex=0; curIndex<self.players.count; curIndex++)
+    {
+        Player *curPlayer = self.players[curIndex];
+        if ([curPlayer isEqual:player])
+        {
+            [self.players removeObject:player];
+        }
+    }
 }
+
 
 @end
