@@ -111,6 +111,7 @@
     }
 }
 
+
 - (void)collisionBehavior:(UICollisionBehavior *)behavior beganContactForItem:(id<UIDynamicItem>)item1 withItem:(id<UIDynamicItem>)item2 atPoint:(CGPoint)p
 {
     BlockView *blockViewHit = nil;
@@ -210,6 +211,7 @@
 
     }
 }
+
 
 -(void)breakoutGame:(BreakoutGame *)breakoutGame startNewPlayerNamed:(NSString *)player withTurnsLeft:(NSInteger)turnsLeft fromPreviousPlayer:(NSString *)previousPlayer 
 {

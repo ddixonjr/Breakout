@@ -13,7 +13,7 @@
 
 @interface BreakoutGame ()
 
-@property (strong, nonatomic) NSMutableArray *players;
+@property (strong, nonatomic) NSArray *players;
 @property (assign, nonatomic) NSInteger curPlayerIndex;
 @property (strong, nonatomic) BlockGrid *blockGrid;
 
@@ -39,9 +39,6 @@
         NSInteger difficulty = curPlayer.round > 2 ? 2 : curPlayer.round;
         self.blockGrid = [[BlockGrid alloc] initRandomBlockGridWithDifficulty:difficulty];
     }
-
-//    Player *testPlayer1 = [[Player alloc] init];
-//    self.players = [NSMutableArray arrayWithArray:@[testPlayer1]];
 
     if ([self.delegate respondsToSelector:@selector(breakoutGame:blockGridHasNumberOfRows:)] &&
         [self.delegate respondsToSelector:@selector(breakoutGame:blockGridRow:hasBlocksWithBlockDescriptors:)])

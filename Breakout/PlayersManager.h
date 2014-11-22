@@ -11,7 +11,7 @@
 
 @interface PlayersManager : NSObject
 
-- (NSMutableArray *)allPlayers;
+- (NSArray *)allPlayers;
 - (void)addPlayer:(Player *)playerName;
 - (void)removePlayer:(Player *)player;
 

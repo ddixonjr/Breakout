@@ -153,7 +153,7 @@ typedef enum {
 
 - (IBAction)onPlayButtonPressed:(id)sender
 {
-    if (!self.tableView.isEditing)
+    if (!self.tableView.isEditing && [[self.playersManager allPlayers] count] > 0)
     {
         [self performSegueWithIdentifier:@"PlayBreakoutSegue" sender:sender];
     }
@@ -169,6 +169,11 @@ typedef enum {
         BreakoutGameViewController *breakoutGameVC = segue.destinationViewController;
         breakoutGameVC.playersManager  = self.playersManager;
     }
+}
+
+- (void)unwindToPlayerListWithSegue:(UIStoryboardSegue *)segue
+{
+    //  Exit segue to facilitate transition from breakout game view controller
 }
 
 
