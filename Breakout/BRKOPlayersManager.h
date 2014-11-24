@@ -1,5 +1,5 @@
 //
-//  Players.h
+//  BRKOPlayersManager.h
 //  Breakout
 //
 //  Created by Dennis Dixon on 5/26/14.
@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Player.h"
+#import "BRKOPlayer.h"
 
-@interface PlayersManager : NSObject
+
+@interface BRKOPlayersManager : NSObject
 
 - (NSArray *)allPlayers;
-- (void)addPlayer:(Player *)playerName;
-- (void)removePlayer:(Player *)player;
+- (void)addPlayer:(BRKOPlayer *)playerName;
+- (void)removePlayer:(BRKOPlayer *)player;
 
 @end

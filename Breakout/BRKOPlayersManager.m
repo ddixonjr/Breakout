@@ -1,22 +1,22 @@
 //
-//  Players.m
+//  BRKOPlayersManager.m
 //  Breakout
 //
 //  Created by Dennis Dixon on 5/26/14.
 //  Copyright (c) 2014 Appivot LLC. All rights reserved.
 //
 
-#import "PlayersManager.h"
+#import "BRKOPlayersManager.h"
 
 
-@interface PlayersManager ()
+@interface BRKOPlayersManager ()
 
 @property (strong, nonatomic) NSMutableArray *players;
 
 @end
 
 
-@implementation PlayersManager
+@implementation BRKOPlayersManager
 
 - (id)init
 {
@@ -35,18 +35,18 @@
 }
 
 
-- (void)addPlayer:(Player *)player
+- (void)addPlayer:(BRKOPlayer *)player
 {
-    Player *newPlayer = [[Player alloc] init];
+    BRKOPlayer *newPlayer = [[BRKOPlayer alloc] init];
     newPlayer = player;
     [self.players addObject:newPlayer];
 }
 
-- (void)removePlayer:(Player *)player
+- (void)removePlayer:(BRKOPlayer *)player
 {
     for (int curIndex=0; curIndex<self.players.count; curIndex++)
     {
-        Player *curPlayer = self.players[curIndex];
+        BRKOPlayer *curPlayer = self.players[curIndex];
         if ([curPlayer isEqual:player])
         {
             [self.players removeObject:player];

@@ -1,5 +1,5 @@
 //
-//  RowView.h
+//  BRKOPaddleView.h
 //  Breakout
 //
 //  Created by Dennis Dixon on 5/23/14.
@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RowView : UIView
+
+@interface BRKOPaddleView : UIView
 
 @end

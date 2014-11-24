@@ -1,5 +1,5 @@
 //
-//  BlockDescriptor.h
+//  BRKOBlockDescriptor.h
 //  Breakout
 //
 //  Created by Dennis Dixon on 5/23/14.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BlockDescriptor : NSObject
+@interface BRKOBlockDescriptor : NSObject
 
 @property (assign, nonatomic) NSInteger blockRow;
 @property (assign, nonatomic) NSInteger blockPosition;

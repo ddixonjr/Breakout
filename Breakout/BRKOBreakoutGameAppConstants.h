@@ -1,5 +1,5 @@
 //
-//  BreakoutGameAppConstants.h
+//  BRKOBreakoutGameAppConstants.h
 //  Breakout
 //
 //  Created by Dennis Dixon on 5/23/14.

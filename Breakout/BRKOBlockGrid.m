@@ -1,16 +1,16 @@
 //
-//  BlockGrid.m
+//  BRKOBlockGrid.m
 //  Breakout
 //
 //  Created by Dennis Dixon on 5/23/14.
 //  Copyright (c) 2014 Appivot LLC. All rights reserved.
 //
 
-#import "BlockGrid.h"
-#import "Block.h"
+#import "BRKOBlockGrid.h"
+#import "BRKOBlock.h"
 
 
-@interface BlockGrid ()
+@interface BRKOBlockGrid ()
 
 @property (strong, nonatomic) NSMutableArray *blockGridRowArray;
 @property (assign, nonatomic) NSInteger totalBlocksInGrid;
@@ -18,7 +18,7 @@
 
 @end
 
-@implementation BlockGrid
+@implementation BRKOBlockGrid
 
 - (id)init
 {
@@ -42,7 +42,6 @@
 {
     self.totalBlocksInGrid = 0;
     self.totalBlocksDestroyed = 0;
-    self.blockRows = kDefaultMaxBlockGridRows;
     self.blockCountPerRowArray = [[NSMutableArray alloc] init];
     self.blockGridRowArray = [[NSMutableArray alloc] init];
 
@@ -55,7 +54,7 @@
         for (int curBlockRow=0; curBlockRow<curRandomNumberOfBlocks; curBlockRow++)
         {
             self.totalBlocksInGrid++;
-            Block *curNewBlock = [[Block alloc] init];
+            BRKOBlock *curNewBlock = [[BRKOBlock alloc] init];
             NSInteger curHitsToDestroy = (arc4random_uniform(kDefaultMaxBlockHitsToDestroy * difficulty) + 1);
             curNewBlock.hitsToDestroy = curHitsToDestroy;
             [curNewBlockRowArray addObject:curNewBlock];
@@ -64,19 +63,21 @@
     }
 }
 
+
 // Returns the number of blocks in the row number specified in the blockDescriptor argument passed in
-- (NSInteger)numberOfBlocksInRowWithBlockDescriptor:(BlockDescriptor *)blockDescriptor
+- (NSInteger)numberOfBlocksInRowWithBlockDescriptor:(BRKOBlockDescriptor *)blockDescriptor
 {
     NSMutableArray *curBlockRow = [self.blockGridRowArray objectAtIndex:blockDescriptor.blockRow];
     return [curBlockRow count];
 }
 
+
 // Returns the block.pointValue if the block is destroyed by the hit, 0 if not destroyed
-- (NSInteger)destroyBlockWithBlockDescriptor:(BlockDescriptor *)blockDescriptor
+- (NSInteger)destroyBlockWithBlockDescriptor:(BRKOBlockDescriptor *)blockDescriptor
 {
     NSInteger pointsIfDestroyed = 0;
     NSMutableArray *curBlockRowArray = [self.blockGridRowArray objectAtIndex:blockDescriptor.blockRow];
-    Block *curBlockHit = [curBlockRowArray objectAtIndex:blockDescriptor.blockPosition];
+    BRKOBlock *curBlockHit = [curBlockRowArray objectAtIndex:blockDescriptor.blockPosition];
     [curBlockHit logHit];
 //    NSLog(@"block at (%ld,%ld) hit and hasBeenDestroyed = %ld",(long)blockDescriptor.blockRow,(long)blockDescriptor.blockPosition,(long)curBlockHit.hasBeenDestroyed);
 
@@ -90,18 +91,26 @@
     return pointsIfDestroyed;
 }
 
+
 // Allows easy lookup of a given Block object in the BlockGrid using a BlockDescriptor object
-- (NSInteger)blockStrengthOfBlockWithBlockDescriptor:(BlockDescriptor *)blockDescriptor
+- (NSInteger)blockStrengthOfBlockWithBlockDescriptor:(BRKOBlockDescriptor *)blockDescriptor
 {
     NSMutableArray *curBlockRowArray = [self.blockGridRowArray objectAtIndex:blockDescriptor.blockRow];
-    Block *polledBlock = [curBlockRowArray objectAtIndex:blockDescriptor.blockPosition];
+    BRKOBlock *polledBlock = [curBlockRowArray objectAtIndex:blockDescriptor.blockPosition];
     return polledBlock.hitsToDestroy;
 }
+
 
 - (BOOL)isBlockGridCleared
 {
     return ((self.totalBlocksDestroyed >= self.totalBlocksInGrid) ? YES : NO);
 }
 
+
+- (NSInteger)blockRows
+{
+    return kDefaultMaxBlockGridRows;
+
+}
 
 @end

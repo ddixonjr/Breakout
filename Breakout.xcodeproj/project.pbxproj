@@ -7,32 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		957F8F591932CD2D005F4E62 /* PlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 957F8F581932CD2D005F4E62 /* PlayersViewController.m */; };
-		957F8F5C1932CE21005F4E62 /* PlayerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 957F8F5B1932CE21005F4E62 /* PlayerDetailViewController.m */; };
-		95855DE91933726C0040C96F /* PlayersManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 95855DE81933726C0040C96F /* PlayersManager.m */; };
+		957F8F591932CD2D005F4E62 /* BRKOPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 957F8F581932CD2D005F4E62 /* BRKOPlayersViewController.m */; };
+		95855DE91933726C0040C96F /* BRKOPlayersManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 95855DE81933726C0040C96F /* BRKOPlayersManager.m */; };
 		95FE5435192FF8190034358C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95FE5434192FF8190034358C /* Foundation.framework */; };
 		95FE5437192FF8190034358C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95FE5436192FF8190034358C /* CoreGraphics.framework */; };
 		95FE5439192FF8190034358C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95FE5438192FF8190034358C /* UIKit.framework */; };
 		95FE543F192FF8190034358C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 95FE543D192FF8190034358C /* InfoPlist.strings */; };
 		95FE5441192FF8190034358C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5440192FF8190034358C /* main.m */; };
-		95FE5445192FF8190034358C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5444192FF8190034358C /* AppDelegate.m */; };
+		95FE5445192FF8190034358C /* BRKOAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5444192FF8190034358C /* BRKOAppDelegate.m */; };
 		95FE5448192FF8190034358C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95FE5446192FF8190034358C /* Main.storyboard */; };
-		95FE544B192FF8190034358C /* BreakoutGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE544A192FF8190034358C /* BreakoutGameViewController.m */; };
+		95FE544B192FF8190034358C /* BRKOBreakoutGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE544A192FF8190034358C /* BRKOBreakoutGameViewController.m */; };
 		95FE544D192FF8190034358C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95FE544C192FF8190034358C /* Images.xcassets */; };
 		95FE5454192FF8190034358C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95FE5453192FF8190034358C /* XCTest.framework */; };
 		95FE5455192FF8190034358C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95FE5434192FF8190034358C /* Foundation.framework */; };
 		95FE5456192FF8190034358C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95FE5438192FF8190034358C /* UIKit.framework */; };
 		95FE545E192FF8190034358C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 95FE545C192FF8190034358C /* InfoPlist.strings */; };
 		95FE5460192FF8190034358C /* BreakoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE545F192FF8190034358C /* BreakoutTests.m */; };
-		95FE546B192FFC5E0034358C /* PaddleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE546A192FFC5E0034358C /* PaddleView.m */; };
-		95FE546E192FFCA70034358C /* BallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE546D192FFCA70034358C /* BallView.m */; };
-		95FE5471192FFD240034358C /* BlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5470192FFD240034358C /* BlockView.m */; };
-		95FE5479193005450034358C /* RowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5478193005450034358C /* RowView.m */; };
-		95FE547F193024AF0034358C /* BlockDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE547E193024AF0034358C /* BlockDescriptor.m */; };
-		95FE548219303B6C0034358C /* BreakoutGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE548119303B6C0034358C /* BreakoutGame.m */; };
-		95FE548519303D120034358C /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE548419303D120034358C /* Player.m */; };
-		95FE548819303E550034358C /* BlockGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE548719303E550034358C /* BlockGrid.m */; };
-		95FE548B19303E920034358C /* Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE548A19303E920034358C /* Block.m */; };
+		95FE546B192FFC5E0034358C /* BRKOPaddleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE546A192FFC5E0034358C /* BRKOPaddleView.m */; };
+		95FE546E192FFCA70034358C /* BRKOBallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE546D192FFCA70034358C /* BRKOBallView.m */; };
+		95FE5471192FFD240034358C /* BRKOBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5470192FFD240034358C /* BRKOBlockView.m */; };
+		95FE5479193005450034358C /* BRKORowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5478193005450034358C /* BRKORowView.m */; };
+		95FE547F193024AF0034358C /* BRKOBlockDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE547E193024AF0034358C /* BRKOBlockDescriptor.m */; };
+		95FE548219303B6C0034358C /* BRKOBreakoutGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE548119303B6C0034358C /* BRKOBreakoutGame.m */; };
+		95FE548519303D120034358C /* BRKOPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE548419303D120034358C /* BRKOPlayer.m */; };
+		95FE548819303E550034358C /* BRKOBlockGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE548719303E550034358C /* BRKOBlockGrid.m */; };
+		95FE548B19303E920034358C /* BRKOBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FE548A19303E920034358C /* BRKOBlock.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,12 +45,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		957F8F571932CD2D005F4E62 /* PlayersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayersViewController.h; sourceTree = "<group>"; };
-		957F8F581932CD2D005F4E62 /* PlayersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayersViewController.m; sourceTree = "<group>"; };
-		957F8F5A1932CE21005F4E62 /* PlayerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerDetailViewController.h; sourceTree = "<group>"; };
-		957F8F5B1932CE21005F4E62 /* PlayerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerDetailViewController.m; sourceTree = "<group>"; };
-		95855DE71933726C0040C96F /* PlayersManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayersManager.h; sourceTree = "<group>"; };
-		95855DE81933726C0040C96F /* PlayersManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayersManager.m; sourceTree = "<group>"; };
+		957F8F571932CD2D005F4E62 /* BRKOPlayersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRKOPlayersViewController.h; sourceTree = "<group>"; };
+		957F8F581932CD2D005F4E62 /* BRKOPlayersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRKOPlayersViewController.m; sourceTree = "<group>"; };
+		95855DE71933726C0040C96F /* BRKOPlayersManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRKOPlayersManager.h; sourceTree = "<group>"; };
+		95855DE81933726C0040C96F /* BRKOPlayersManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRKOPlayersManager.m; sourceTree = "<group>"; };
 		95FE5431192FF8180034358C /* Breakout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breakout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95FE5434192FF8190034358C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		95FE5436192FF8190034358C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -60,36 +57,36 @@
 		95FE543E192FF8190034358C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		95FE5440192FF8190034358C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		95FE5442192FF8190034358C /* Breakout-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Breakout-Prefix.pch"; sourceTree = "<group>"; };
-		95FE5443192FF8190034358C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		95FE5444192FF8190034358C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		95FE5443192FF8190034358C /* BRKOAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRKOAppDelegate.h; sourceTree = "<group>"; };
+		95FE5444192FF8190034358C /* BRKOAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRKOAppDelegate.m; sourceTree = "<group>"; };
 		95FE5447192FF8190034358C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		95FE5449192FF8190034358C /* BreakoutGameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BreakoutGameViewController.h; sourceTree = "<group>"; };
-		95FE544A192FF8190034358C /* BreakoutGameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BreakoutGameViewController.m; sourceTree = "<group>"; };
+		95FE5449192FF8190034358C /* BRKOBreakoutGameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRKOBreakoutGameViewController.h; sourceTree = "<group>"; };
+		95FE544A192FF8190034358C /* BRKOBreakoutGameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRKOBreakoutGameViewController.m; sourceTree = "<group>"; };
 		95FE544C192FF8190034358C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		95FE5452192FF8190034358C /* BreakoutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BreakoutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		95FE5453192FF8190034358C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		95FE545B192FF8190034358C /* BreakoutTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BreakoutTests-Info.plist"; sourceTree = "<group>"; };
 		95FE545D192FF8190034358C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		95FE545F192FF8190034358C /* BreakoutTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BreakoutTests.m; sourceTree = "<group>"; };
-		95FE5469192FFC5E0034358C /* PaddleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaddleView.h; sourceTree = "<group>"; };
-		95FE546A192FFC5E0034358C /* PaddleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaddleView.m; sourceTree = "<group>"; };
-		95FE546C192FFCA70034358C /* BallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BallView.h; sourceTree = "<group>"; };
-		95FE546D192FFCA70034358C /* BallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BallView.m; sourceTree = "<group>"; };
-		95FE546F192FFD240034358C /* BlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockView.h; sourceTree = "<group>"; };
-		95FE5470192FFD240034358C /* BlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockView.m; sourceTree = "<group>"; };
-		95FE54751930028D0034358C /* BreakoutGameAppConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BreakoutGameAppConstants.h; sourceTree = "<group>"; };
-		95FE5477193005450034358C /* RowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RowView.h; sourceTree = "<group>"; };
-		95FE5478193005450034358C /* RowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RowView.m; sourceTree = "<group>"; };
-		95FE547D193024AF0034358C /* BlockDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockDescriptor.h; sourceTree = "<group>"; };
-		95FE547E193024AF0034358C /* BlockDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockDescriptor.m; sourceTree = "<group>"; };
-		95FE548019303B6C0034358C /* BreakoutGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BreakoutGame.h; sourceTree = "<group>"; };
-		95FE548119303B6C0034358C /* BreakoutGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BreakoutGame.m; sourceTree = "<group>"; };
-		95FE548319303D120034358C /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
-		95FE548419303D120034358C /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
-		95FE548619303E550034358C /* BlockGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockGrid.h; sourceTree = "<group>"; };
-		95FE548719303E550034358C /* BlockGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockGrid.m; sourceTree = "<group>"; };
-		95FE548919303E920034358C /* Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Block.h; sourceTree = "<group>"; };
-		95FE548A19303E920034358C /* Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Block.m; sourceTree = "<group>"; };
+		95FE5469192FFC5E0034358C /* BRKOPaddleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRKOPaddleView.h; sourceTree = "<group>"; };
+		95FE546A192FFC5E0034358C /* BRKOPaddleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRKOPaddleView.m; sourceTree = "<group>"; };
+		95FE546C192FFCA70034358C /* BRKOBallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRKOBallView.h; sourceTree = "<group>"; };
+		95FE546D192FFCA70034358C /* BRKOBallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRKOBallView.m; sourceTree = "<group>"; };
+		95FE546F192FFD240034358C /* BRKOBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRKOBlockView.h; sourceTree = "<group>"; };
+		95FE5470192FFD240034358C /* BRKOBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRKOBlockView.m; sourceTree = "<group>"; };
+		95FE54751930028D0034358C /* BRKOBreakoutGameAppConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRKOBreakoutGameAppConstants.h; sourceTree = "<group>"; };
+		95FE5477193005450034358C /* BRKORowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRKORowView.h; sourceTree = "<group>"; };
+		95FE5478193005450034358C /* BRKORowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRKORowView.m; sourceTree = "<group>"; };
+		95FE547D193024AF0034358C /* BRKOBlockDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRKOBlockDescriptor.h; sourceTree = "<group>"; };
+		95FE547E193024AF0034358C /* BRKOBlockDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRKOBlockDescriptor.m; sourceTree = "<group>"; };
+		95FE548019303B6C0034358C /* BRKOBreakoutGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRKOBreakoutGame.h; sourceTree = "<group>"; };
+		95FE548119303B6C0034358C /* BRKOBreakoutGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRKOBreakoutGame.m; sourceTree = "<group>"; };
+		95FE548319303D120034358C /* BRKOPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRKOPlayer.h; sourceTree = "<group>"; };
+		95FE548419303D120034358C /* BRKOPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRKOPlayer.m; sourceTree = "<group>"; };
+		95FE548619303E550034358C /* BRKOBlockGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRKOBlockGrid.h; sourceTree = "<group>"; };
+		95FE548719303E550034358C /* BRKOBlockGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRKOBlockGrid.m; sourceTree = "<group>"; };
+		95FE548919303E920034358C /* BRKOBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRKOBlock.h; sourceTree = "<group>"; };
+		95FE548A19303E920034358C /* BRKOBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRKOBlock.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,14 +189,14 @@
 			isa = PBXGroup;
 			children = (
 				95FE5446192FF8190034358C /* Main.storyboard */,
-				95FE5469192FFC5E0034358C /* PaddleView.h */,
-				95FE546A192FFC5E0034358C /* PaddleView.m */,
-				95FE546C192FFCA70034358C /* BallView.h */,
-				95FE546D192FFCA70034358C /* BallView.m */,
-				95FE546F192FFD240034358C /* BlockView.h */,
-				95FE5470192FFD240034358C /* BlockView.m */,
-				95FE5477193005450034358C /* RowView.h */,
-				95FE5478193005450034358C /* RowView.m */,
+				95FE5469192FFC5E0034358C /* BRKOPaddleView.h */,
+				95FE546A192FFC5E0034358C /* BRKOPaddleView.m */,
+				95FE546C192FFCA70034358C /* BRKOBallView.h */,
+				95FE546D192FFCA70034358C /* BRKOBallView.m */,
+				95FE546F192FFD240034358C /* BRKOBlockView.h */,
+				95FE5470192FFD240034358C /* BRKOBlockView.m */,
+				95FE5477193005450034358C /* BRKORowView.h */,
+				95FE5478193005450034358C /* BRKORowView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -207,14 +204,12 @@
 		95FE5473192FFD570034358C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				95FE5443192FF8190034358C /* AppDelegate.h */,
-				95FE5444192FF8190034358C /* AppDelegate.m */,
-				95FE5449192FF8190034358C /* BreakoutGameViewController.h */,
-				95FE544A192FF8190034358C /* BreakoutGameViewController.m */,
-				957F8F571932CD2D005F4E62 /* PlayersViewController.h */,
-				957F8F581932CD2D005F4E62 /* PlayersViewController.m */,
-				957F8F5A1932CE21005F4E62 /* PlayerDetailViewController.h */,
-				957F8F5B1932CE21005F4E62 /* PlayerDetailViewController.m */,
+				95FE5443192FF8190034358C /* BRKOAppDelegate.h */,
+				95FE5444192FF8190034358C /* BRKOAppDelegate.m */,
+				95FE5449192FF8190034358C /* BRKOBreakoutGameViewController.h */,
+				95FE544A192FF8190034358C /* BRKOBreakoutGameViewController.m */,
+				957F8F571932CD2D005F4E62 /* BRKOPlayersViewController.h */,
+				957F8F581932CD2D005F4E62 /* BRKOPlayersViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -222,18 +217,18 @@
 		95FE5474192FFD760034358C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				95FE548019303B6C0034358C /* BreakoutGame.h */,
-				95FE548119303B6C0034358C /* BreakoutGame.m */,
-				95FE548619303E550034358C /* BlockGrid.h */,
-				95FE548719303E550034358C /* BlockGrid.m */,
-				95FE548919303E920034358C /* Block.h */,
-				95FE548A19303E920034358C /* Block.m */,
-				95FE547D193024AF0034358C /* BlockDescriptor.h */,
-				95FE547E193024AF0034358C /* BlockDescriptor.m */,
-				95855DE71933726C0040C96F /* PlayersManager.h */,
-				95855DE81933726C0040C96F /* PlayersManager.m */,
-				95FE548319303D120034358C /* Player.h */,
-				95FE548419303D120034358C /* Player.m */,
+				95FE548019303B6C0034358C /* BRKOBreakoutGame.h */,
+				95FE548119303B6C0034358C /* BRKOBreakoutGame.m */,
+				95FE548619303E550034358C /* BRKOBlockGrid.h */,
+				95FE548719303E550034358C /* BRKOBlockGrid.m */,
+				95FE548919303E920034358C /* BRKOBlock.h */,
+				95FE548A19303E920034358C /* BRKOBlock.m */,
+				95FE547D193024AF0034358C /* BRKOBlockDescriptor.h */,
+				95FE547E193024AF0034358C /* BRKOBlockDescriptor.m */,
+				95855DE71933726C0040C96F /* BRKOPlayersManager.h */,
+				95855DE81933726C0040C96F /* BRKOPlayersManager.m */,
+				95FE548319303D120034358C /* BRKOPlayer.h */,
+				95FE548419303D120034358C /* BRKOPlayer.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -241,7 +236,7 @@
 		95FE5476193002F80034358C /* AppLevel */ = {
 			isa = PBXGroup;
 			children = (
-				95FE54751930028D0034358C /* BreakoutGameAppConstants.h */,
+				95FE54751930028D0034358C /* BRKOBreakoutGameAppConstants.h */,
 			);
 			name = AppLevel;
 			sourceTree = "<group>";
@@ -346,21 +341,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95FE5471192FFD240034358C /* BlockView.m in Sources */,
-				95FE546B192FFC5E0034358C /* PaddleView.m in Sources */,
-				95FE544B192FF8190034358C /* BreakoutGameViewController.m in Sources */,
-				95FE547F193024AF0034358C /* BlockDescriptor.m in Sources */,
-				95FE548519303D120034358C /* Player.m in Sources */,
-				95FE548219303B6C0034358C /* BreakoutGame.m in Sources */,
-				95855DE91933726C0040C96F /* PlayersManager.m in Sources */,
-				95FE546E192FFCA70034358C /* BallView.m in Sources */,
-				957F8F591932CD2D005F4E62 /* PlayersViewController.m in Sources */,
-				95FE5445192FF8190034358C /* AppDelegate.m in Sources */,
+				95FE5471192FFD240034358C /* BRKOBlockView.m in Sources */,
+				95FE546B192FFC5E0034358C /* BRKOPaddleView.m in Sources */,
+				95FE544B192FF8190034358C /* BRKOBreakoutGameViewController.m in Sources */,
+				95FE547F193024AF0034358C /* BRKOBlockDescriptor.m in Sources */,
+				95FE548519303D120034358C /* BRKOPlayer.m in Sources */,
+				95FE548219303B6C0034358C /* BRKOBreakoutGame.m in Sources */,
+				95855DE91933726C0040C96F /* BRKOPlayersManager.m in Sources */,
+				95FE546E192FFCA70034358C /* BRKOBallView.m in Sources */,
+				957F8F591932CD2D005F4E62 /* BRKOPlayersViewController.m in Sources */,
+				95FE5445192FF8190034358C /* BRKOAppDelegate.m in Sources */,
 				95FE5441192FF8190034358C /* main.m in Sources */,
-				957F8F5C1932CE21005F4E62 /* PlayerDetailViewController.m in Sources */,
-				95FE548B19303E920034358C /* Block.m in Sources */,
-				95FE5479193005450034358C /* RowView.m in Sources */,
-				95FE548819303E550034358C /* BlockGrid.m in Sources */,
+				95FE548B19303E920034358C /* BRKOBlock.m in Sources */,
+				95FE5479193005450034358C /* BRKORowView.m in Sources */,
+				95FE548819303E550034358C /* BRKOBlockGrid.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

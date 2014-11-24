@@ -1,21 +1,21 @@
 //
-//  Block.m
+//  BRKOBlock.m
 //  Breakout
 //
 //  Created by Dennis Dixon on 5/23/14.
 //  Copyright (c) 2014 Appivot LLC. All rights reserved.
 //
 
-#import "Block.h"
+#import "BRKOBlock.h"
 
-@interface Block ()
+@interface BRKOBlock ()
 
 @property (assign, nonatomic) NSInteger hitCount;
 @property (assign, nonatomic) BOOL hasBeenDestroyed;
 
 @end
 
-@implementation Block
+@implementation BRKOBlock
 
 -(NSInteger)pointValue
 {

@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  BRKORowView.h
 //  Breakout
 //
 //  Created by Dennis Dixon on 5/23/14.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
+@interface BRKORowView : UIView
 
 @end

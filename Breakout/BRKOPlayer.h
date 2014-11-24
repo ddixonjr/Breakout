@@ -1,5 +1,5 @@
 //
-//  Player.h
+//  BRKOPlayer.h
 //  Breakout
 //
 //  Created by Dennis Dixon on 5/23/14.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Player : NSObject
+@interface BRKOPlayer : NSObject
 
 @property (strong, nonatomic) NSString *name;
 @property (assign, nonatomic) NSInteger turnsLeft;

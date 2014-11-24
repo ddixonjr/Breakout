@@ -1,16 +1,16 @@
 //
-//  PlayersViewController.m
+//  BRKOPlayersViewController.m
 //  Breakout
 //
 //  Created by Dennis Dixon on 5/25/14.
 //  Copyright (c) 2014 Appivot LLC. All rights reserved.
 //
 
-#import "PlayersViewController.h"
-#import "BreakoutGameViewController.h"
-#import "PlayerDetailViewController.h"
-#import "PlayersManager.h"
-#import "Player.h"
+#import "BRKOPlayersViewController.h"
+#import "BRKOBreakoutGameViewController.h"
+#import "BRKOPlayerDetailViewController.h"
+#import "BRKOPlayersManager.h"
+#import "BRKOPlayer.h"
 
 typedef enum {
     kPlayersEditModeOff,
@@ -18,12 +18,12 @@ typedef enum {
     kPlayersEditModeAdd
 } PlayersEditMode;
 
-@interface PlayersViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
+@interface BRKOPlayersViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *addPlayerTextField;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
-@property (strong, nonatomic) PlayersManager *playersManager;
+@property (strong, nonatomic) BRKOPlayersManager *playersManager;
 @property (strong, nonatomic) NSArray *players;
 @property (assign, nonatomic) PlayersEditMode playersEditMode;
 @property (assign, nonatomic) NSInteger selectedRow;
@@ -31,7 +31,7 @@ typedef enum {
 @end
 
 
-@implementation PlayersViewController 
+@implementation BRKOPlayersViewController 
 
 
 #pragma mark - UIViewController Lifecycle Methods
@@ -39,7 +39,7 @@ typedef enum {
 {
     [super viewDidLoad];
 
-    self.playersManager = [[PlayersManager alloc] init];
+    self.playersManager = [[BRKOPlayersManager alloc] init];
     self.navigationController.navigationBar.topItem.title = @"Breakout Players";
     self.addPlayerTextField.delegate = self;
     self.playersEditMode = kPlayersEditModeOff;
@@ -67,7 +67,7 @@ typedef enum {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlayerCell"];
-    Player *curPlayer = self.players[indexPath.row];
+    BRKOPlayer *curPlayer = self.players[indexPath.row];
     cell.textLabel.text = curPlayer.name;
     return cell;
 }
@@ -82,7 +82,7 @@ typedef enum {
     [self.addButton setTitle:@"Done" forState:UIControlStateNormal];
     self.playersEditMode = kPlayersEditModeEdit;
     self.selectedRow = indexPath.row;
-    Player *selectedPlayer = self.players[self.selectedRow];
+    BRKOPlayer *selectedPlayer = self.players[self.selectedRow];
     self.addPlayerTextField.text = selectedPlayer.name;
     [self.addPlayerTextField becomeFirstResponder];
 }
@@ -129,12 +129,12 @@ typedef enum {
 
         if (self.playersEditMode == kPlayersEditModeAdd)
         {
-            Player *newPlayer = [[Player alloc] initWithName:self.addPlayerTextField.text andTurnsAtStart:kDefaultNumberOfTurns];
+            BRKOPlayer *newPlayer = [[BRKOPlayer alloc] initWithName:self.addPlayerTextField.text andTurnsAtStart:kDefaultNumberOfTurns];
             [self.playersManager addPlayer:newPlayer];
         }
         else if (self.playersEditMode == kPlayersEditModeEdit)
         {
-            Player *selectedPlayer = self.players[self.selectedRow];
+            BRKOPlayer *selectedPlayer = self.players[self.selectedRow];
             selectedPlayer.name = self.addPlayerTextField.text;
         }
         self.addPlayerTextField.text = @"";
@@ -166,7 +166,7 @@ typedef enum {
 {
     if ([segue.identifier isEqualToString:@"PlayBreakoutSegue"])
     {
-        BreakoutGameViewController *breakoutGameVC = segue.destinationViewController;
+        BRKOBreakoutGameViewController *breakoutGameVC = segue.destinationViewController;
         breakoutGameVC.playersManager  = self.playersManager;
     }
 }
@@ -186,7 +186,7 @@ typedef enum {
 
     for (int curIndex=0; curIndex<self.players.count; curIndex++)
     {
-        Player *curPlayer = self.players[curIndex];
+        BRKOPlayer *curPlayer = self.players[curIndex];
         if ([curPlayer.name isEqualToString:playerName])
         {
             if ((self.playersEditMode == kPlayersEditModeAdd) ||

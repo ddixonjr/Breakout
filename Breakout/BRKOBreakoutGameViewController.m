@@ -1,5 +1,5 @@
 //
-//  BreakoutGameViewController.m
+//  BRKOBreakoutGameViewController.m
 //  Breakout
 //
 //  This version of Breakout implements an MVC-designed version of the Breakout game built using
@@ -10,13 +10,14 @@
 //  Copyright (c) 2014 Appivot LLC. All rights reserved.
 //
 
-#import "BreakoutGameViewController.h"
-#import "PaddleView.h"
-#import "BallView.h"
-#import "BlockView.h"
-#import "RowView.h"
-#import "BlockDescriptor.h"
+#import "BRKOBreakoutGameViewController.h"
+#import "BRKOPaddleView.h"
+#import "BRKOBallView.h"
+#import "BRKOBlockView.h"
+#import "BRKORowView.h"
+#import "BRKOBlockDescriptor.h"
 
+#define kDebugOn NO
 #define kBottomBoundaryIdString @"BottomBoundary"
 #define kGamePiecePaddleStartCenterPosition 267.0
 #define kGamePieceBlockHeight 14.0
@@ -24,19 +25,19 @@
 #define kGamePieceBlockInterblockSpacing 2.0
 
 
-@interface BreakoutGameViewController () <BreakoutGameDelegate,UICollisionBehaviorDelegate,UIAlertViewDelegate>
+@interface BRKOBreakoutGameViewController () <BRKOBreakoutGameDelegate,UICollisionBehaviorDelegate,UIAlertViewDelegate>
 
 // View Related Properties
 @property (weak, nonatomic) IBOutlet UILabel *playerNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *turnLabel;
-@property (weak, nonatomic) IBOutlet PaddleView *paddleView;
-@property (weak, nonatomic) IBOutlet BallView *ballView;
-@property (weak, nonatomic) IBOutlet RowView *rowView0;
-@property (weak, nonatomic) IBOutlet RowView *rowView1;
-@property (weak, nonatomic) IBOutlet RowView *rowView2;
-@property (weak, nonatomic) IBOutlet RowView *rowView3;
-@property (weak, nonatomic) IBOutlet RowView *rowView4;
+@property (weak, nonatomic) IBOutlet BRKOPaddleView *paddleView;
+@property (weak, nonatomic) IBOutlet BRKOBallView *ballView;
+@property (weak, nonatomic) IBOutlet BRKORowView *rowView0;
+@property (weak, nonatomic) IBOutlet BRKORowView *rowView1;
+@property (weak, nonatomic) IBOutlet BRKORowView *rowView2;
+@property (weak, nonatomic) IBOutlet BRKORowView *rowView3;
+@property (weak, nonatomic) IBOutlet BRKORowView *rowView4;
 @property (strong,nonatomic) NSArray *rowViewArray;
 @property (strong, nonatomic) NSMutableArray *allBlockViewsArray;
 @property (strong, nonatomic) NSMutableArray *destroyedBlockViewsArray;
@@ -50,13 +51,13 @@
 @property (strong,nonatomic) UIDynamicItemBehavior *blockItemBehavior;
 
 // Breakout Game Object Properties
-@property (strong, nonatomic) BreakoutGame *breakoutGame;
+@property (strong, nonatomic) BRKOBreakoutGame *breakoutGame;
 
 @end
 
 
 
-@implementation BreakoutGameViewController
+@implementation BRKOBreakoutGameViewController
 
 
 #pragma mark - View Controller Lifecycle Methods
@@ -65,7 +66,7 @@
 {
     [super viewDidLoad];
 
-    self.breakoutGame = [[BreakoutGame alloc] init];
+    self.breakoutGame = [[BRKOBreakoutGame alloc] init];
     self.breakoutGame.delegate = self;
     self.breakoutGame.playersManager = self.playersManager;
     self.allBlockViewsArray = [[NSMutableArray alloc] init];
@@ -100,7 +101,7 @@
     if ([boundaryIdString isEqualToString:kBottomBoundaryIdString] && [item isEqual:self.ballView])
     {
 //      NSLog(@"Ball hit bottom");
-        [self.breakoutGame turnEnded:[self.scoreLabel.text integerValue]];
+        [self.breakoutGame turnEnded];
         [self removeBehaviorsFromDynamicAnimator];
         [self resetPaddleToStartPosition];
 
@@ -114,12 +115,12 @@
 
 - (void)collisionBehavior:(UICollisionBehavior *)behavior beganContactForItem:(id<UIDynamicItem>)item1 withItem:(id<UIDynamicItem>)item2 atPoint:(CGPoint)p
 {
-    BlockView *blockViewHit = nil;
+    BRKOBlockView *blockViewHit = nil;
 
-    if ([item1 isKindOfClass:[BlockView class]])
-        blockViewHit = (BlockView *) item1;
-    else if ([item2 isKindOfClass:[BlockView class]])
-        blockViewHit = (BlockView *) item2;
+    if ([item1 isKindOfClass:[BRKOBlockView class]])
+        blockViewHit = (BRKOBlockView *) item1;
+    else if ([item2 isKindOfClass:[BRKOBlockView class]])
+        blockViewHit = (BRKOBlockView *) item2;
 
     if (blockViewHit !=nil)
     {
@@ -134,14 +135,14 @@
 
 #pragma mark - BreakoutGameDelegate Methods
 
-- (void)breakoutGame:(BreakoutGame *)breakoutGame blockGridHasNumberOfRows:(NSInteger)rows
+- (void)breakoutGame:(BRKOBreakoutGame *)breakoutGame blockGridHasNumberOfRows:(NSInteger)rows
 {
 //    NSLog(@"in breakoutGame:blockGridHasNumberOfRows");
 //    I'll use this later to vary the number of block rows based on the game object!
 }
 
 
-- (void)breakoutGame:(BreakoutGame *)breakoutGame blockGridRow:(NSInteger)row hasBlocksWithBlockDescriptors:(NSArray *)blockRowDescriptorArray
+- (void)breakoutGame:(BRKOBreakoutGame *)breakoutGame blockGridRow:(NSInteger)row hasBlocksWithBlockDescriptors:(NSArray *)blockRowDescriptorArray
 {
 //    NSLog(@"in breakoutGame:blockGridRow:hasBlockWithDescriptors - curBlkDescriptorArray has %ld elements", (long)blockRowDescriptorArray.count);
     UIView *curRowView = [self.rowViewArray objectAtIndex:row];
@@ -151,7 +152,7 @@
     CGFloat widthPerStrengthUnitFactor = 0;
     CGFloat curRowXPosition = kGamePieceBlockInterblockSpacing;
 
-    for (BlockDescriptor *curBlockDescriptor in blockRowDescriptorArray)
+    for (BRKOBlockDescriptor *curBlockDescriptor in blockRowDescriptorArray)
         totalBlockStrengthInRow += curBlockDescriptor.blockStrength;
 
     widthPerStrengthUnitFactor = adjustedRowViewWidthForBlockSpacing / totalBlockStrengthInRow;
@@ -160,9 +161,9 @@
     // For each block descriptor in the current row of blocks passed in from the BreakoutGame object,
     //   create a row of BlockViews (each having a width proportional to its 'strength') and pass in the BlockView
     //   for later identification to the block grid in the BreakoutGame object
-    for (BlockDescriptor *curBlockDescriptor in blockRowDescriptorArray)
+    for (BRKOBlockDescriptor *curBlockDescriptor in blockRowDescriptorArray)
     {
-        BlockView *curNewBlock = [[BlockView alloc] initWithBlockDescriptor:curBlockDescriptor];
+        BRKOBlockView *curNewBlock = [[BRKOBlockView alloc] initWithBlockDescriptor:curBlockDescriptor];
         CGFloat curBlockWidth = curNewBlock.blockDescriptor.blockStrength * widthPerStrengthUnitFactor;
 //        NSLog(@"curBlockStrength = %d  curBlockWidth is %f  curRowXPosition %f",curNewBlock.blockDescriptor.blockStrength, curBlockWidth, curRowXPosition);
         curNewBlock.frame = CGRectMake((curRowView.frame.origin.x + curRowXPosition),
@@ -197,7 +198,7 @@
 }
 
 
-- (void)breakoutGame:(BreakoutGame *)breakoutGame playerName:(NSString *)player hasTurnsLeft:(NSInteger)turnsLeft withClearBoardStatus:(BOOL)isBoardCleared andCurrentScore:(NSInteger)score
+- (void)breakoutGame:(BRKOBreakoutGame *)breakoutGame playerName:(NSString *)player hasTurnsLeft:(NSInteger)turnsLeft withClearBoardStatus:(BOOL)isBoardCleared andCurrentScore:(NSInteger)score
 {
 //    NSLog(@"in breakoutGame:playerName:hasTurnsLeft:withClearBoardStatus:andCurrentScore turnsLeft = %d",turnsLeft);
     self.turnLabel.text = [NSString stringWithFormat:@"%ld",(long)turnsLeft];
@@ -213,7 +214,7 @@
 }
 
 
--(void)breakoutGame:(BreakoutGame *)breakoutGame startNewPlayerNamed:(NSString *)player withTurnsLeft:(NSInteger)turnsLeft fromPreviousPlayer:(NSString *)previousPlayer 
+-(void)breakoutGame:(BRKOBreakoutGame *)breakoutGame startNewPlayerNamed:(NSString *)player withTurnsLeft:(NSInteger)turnsLeft fromPreviousPlayer:(NSString *)previousPlayer 
 {
     self.turnLabel.text = [NSString stringWithFormat:@"%ld",(long)turnsLeft];
     self.playerNameLabel.text = player;
@@ -225,7 +226,7 @@
 }
 
 
--(void)breakoutGame:(BreakoutGame *)breakoutGame gameOverWithWinner:(NSString *)player andScore:(NSInteger)winningScore;
+-(void)breakoutGame:(BRKOBreakoutGame *)breakoutGame gameOverWithWinner:(NSString *)player andScore:(NSInteger)winningScore;
 {
     [self removeBehaviorsFromDynamicAnimator];
     NSString *winnerString = [NSString stringWithFormat:@"%@ won with %ld points!\nPlay Again?",player,(long)winningScore];
@@ -308,7 +309,7 @@
 {
     for (UIView *curSubview in self.view.subviews)
     {
-        if ([curSubview isKindOfClass:[BlockView class]])
+        if ([curSubview isKindOfClass:[BRKOBlockView class]])
         {
             [self.collisionBehavior removeItem:curSubview];
             [curSubview removeFromSuperview];
@@ -355,7 +356,7 @@
                           self.rowView3,
                           self.rowView4];
 
-    for (RowView *curRowView in self.rowViewArray)
+    for (BRKORowView *curRowView in self.rowViewArray)
     {
         curRowView.backgroundColor = [UIColor clearColor];
     }
