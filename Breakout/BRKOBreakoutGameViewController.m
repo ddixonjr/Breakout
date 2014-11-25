@@ -14,7 +14,6 @@
 #import "BRKOPaddleView.h"
 #import "BRKOBallView.h"
 #import "BRKOBlockView.h"
-#import "BRKORowView.h"
 #import "BRKOBlockDescriptor.h"
 
 #define kDebugOn NO
@@ -356,7 +355,7 @@
                           self.rowView3,
                           self.rowView4];
 
-    for (BRKORowView *curRowView in self.rowViewArray)
+    for (UIView *curRowView in self.rowViewArray)
     {
         curRowView.backgroundColor = [UIColor clearColor];
     }
