@@ -8,7 +8,6 @@
 
 #import "BRKOPlayersViewController.h"
 #import "BRKOBreakoutGameViewController.h"
-#import "BRKOPlayerDetailViewController.h"
 #import "BRKOPlayersManager.h"
 #import "BRKOPlayer.h"
 

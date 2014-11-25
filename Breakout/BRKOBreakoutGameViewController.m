@@ -33,11 +33,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *turnLabel;
 @property (weak, nonatomic) IBOutlet BRKOPaddleView *paddleView;
 @property (weak, nonatomic) IBOutlet BRKOBallView *ballView;
-@property (weak, nonatomic) IBOutlet BRKORowView *rowView0;
-@property (weak, nonatomic) IBOutlet BRKORowView *rowView1;
-@property (weak, nonatomic) IBOutlet BRKORowView *rowView2;
-@property (weak, nonatomic) IBOutlet BRKORowView *rowView3;
-@property (weak, nonatomic) IBOutlet BRKORowView *rowView4;
+@property (weak, nonatomic) IBOutlet UIView *rowView0;
+@property (weak, nonatomic) IBOutlet UIView *rowView1;
+@property (weak, nonatomic) IBOutlet UIView *rowView2;
+@property (weak, nonatomic) IBOutlet UIView *rowView3;
+@property (weak, nonatomic) IBOutlet UIView *rowView4;
 @property (strong,nonatomic) NSArray *rowViewArray;
 @property (strong, nonatomic) NSMutableArray *allBlockViewsArray;
 @property (strong, nonatomic) NSMutableArray *destroyedBlockViewsArray;
